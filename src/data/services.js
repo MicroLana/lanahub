@@ -1,0 +1,162 @@
+// src/data/services.js
+export const serviceCategories = {
+  "electrical-work": {
+    title: "Electrical Work",
+    tasks: [
+      "Installation of Lights & Fixtures",
+      "Wiring of Cables & Switchboards",
+      "Fixing Plugs & Sockets",
+      "Circuit Breaker Installation & Repair",
+      "Electrical Fault Finding & Repair",
+      "Ceiling Fan Installation",
+    ],
+    img: "/images/electrical.jpg",
+  },
+  "plumbing": {
+    title: "Plumbing",
+    tasks: [
+      "Installation of Booster Pump",
+      "Fixing Broken Pipes & Leakages",
+      "Unblocking Drains & Toilets",
+      "Installation of Water Heaters & Geysers",
+      "Bathroom & Kitchen Fittings",
+      "Water Tank Installation",
+    ],
+    img: "/images/plumbing.jpg",
+  },
+  "housekeeping": {
+    title: "Housekeeping",
+    tasks: [
+      "Full-Time Housekeepers",
+      "Part-Time Cleaning Services",
+      "Temporary House Help",
+      "Deep Cleaning Services",
+      "Post-Construction Cleaning",
+      "Laundry & Ironing Services",
+    ],
+    img: "/images/housekeeping.jpg",
+  },
+  "internet-connectivity": {
+    title: "Internet & Connectivity",
+    tasks: [
+      "Installation of Starlink",
+      "DSTV Installation & Alignment",
+      "WiFi Router Installation & Setup",
+      "Network Cabling",
+      "Smart Home Setup",
+      "CCTV Installation",
+    ],
+    img: "/images/internet.jpg",
+  },
+  "appliance-installation": {
+    title: "Appliance Installation & Repair",
+    tasks: [
+      "TV Mounting",
+      "Air Conditioner Installation & Repair",
+      "Gas Stove Installation",
+      "Washing Machine Installation",
+      "Fridge & Freezer Repair",
+      "Microwave Repair",
+    ],
+    img: "/images/appliance.jpg",
+  },
+  "gardening-outdoor": {
+    title: "Gardening & Outdoor Services",
+    tasks: [
+      "Lawn Cutting",
+      "Tree Removal & Trimming",
+      "Garden Maintenance",
+      "Hedge Trimming",
+      "Landscape Design",
+      "Pest Control",
+    ],
+    img: "/images/gardening.jpg",
+  },
+  "refuse-waste": {
+    title: "Refuse Collection & Waste Management",
+    tasks: [
+      "Household Garbage Collection",
+      "Bulk Waste Removal",
+      "Recycling Services",
+      "Garden Waste Disposal",
+    ],
+    img: "/images/waste.jpg",
+  },
+  "mechanic-auto": {
+    title: "Mechanic & Auto Services",
+    tasks: [
+      "Vehicle Servicing & Repairs",
+      "Tyre Replacement & Wheel Balancing",
+      "Oil Change Services",
+      "Fuel Delivery",
+      "Battery Replacement",
+      "Car Diagnostics",
+    ],
+    img: "/images/mechanic.jpg",
+  },
+  "solar-renewable": {
+    title: "Solar & Renewable Energy",
+    tasks: [
+      "Inverter Installation",
+      "Battery Installation & Replacement",
+      "Solar Panel Setup",
+      "Solar Geyser Installation",
+      "System Maintenance & Repairs",
+    ],
+    img: "/images/solar.jpg",
+  },
+  "painting-carpentry": {
+    title: "Painting & Carpentry",
+    tasks: [
+      "Interior & Exterior Painting",
+      "Furniture Assembly",
+      "Door & Window Repairs",
+      "Cabinet Installation",
+      "Wood Polishing & Restoration",
+    ],
+    img: "/images/painting.jpg",
+  },
+  "moving-delivery": {
+    title: "Moving & Delivery",
+    tasks: [
+      "House Moving Services",
+      "Office Relocation",
+      "Furniture Delivery & Assembly",
+      "Appliance Pickup & Delivery",
+      "Packing & Unpacking Services",
+    ],
+    img: "/images/moving.jpg",
+  },
+  "home-repairs": {
+    title: "Home Repairs & Maintenance",
+    tasks: [
+      "Wall Repairs (Plaster & Drywall)",
+      "Tile Installation & Repairs",
+      "Roof Leak Fixing",
+      "Door Lock Repairs",
+      "Grouting & Sealing",
+    ],
+    img: "/images/repairs.jpg",
+  },
+  "pest-fumigation": {
+    title: "Pest Control & Fumigation",
+    tasks: [
+      "Termite Treatment",
+      "Cockroach & Ant Control",
+      "Rodent Removal",
+      "Mosquito Control",
+      "Bee Removals",
+    ],
+    img: "/images/pest.jpg",
+  },
+  "special-services": {
+    title: "Special Services",
+    tasks: [
+      "Baby Sitting",
+      "Elderly Care",
+      "Pet Sitting & Dog Walking",
+      "Pool Cleaning & Maintenance",
+    ],
+    img: "/images/special.jpg",
+  },
+};
