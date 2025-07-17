@@ -1,26 +1,27 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import ServiceDetailsPage from "./pages/ServiceDetailsPage";
-import AuthModal from "./components/AuthModal";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+
+import Home from "./pages/Home.jsx";
+import ServiceDetailsPage from "./pages/ServiceDetailsPage.jsx";
+import AuthModal from "./components/AuthModal.jsx";
 
 export default function App() {
-  const [isAuthOpen, setAuthOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
-  const handleRequireAuth = () => setAuthOpen(true);
-  const handleCloseAuth = () => setAuthOpen(false);
+  useEffect(() => {
+    return onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+  }, []);
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/services/:serviceName"
-          element={<ServiceDetailsPage onRequireAuth={handleRequireAuth} />}
-        />
+        <Route path="/" element={user ? <Home /> : <AuthModal />} />
+        <Route path="/service/:id" element={<ServiceDetailsPage />} />
       </Routes>
-
-      {isAuthOpen && <AuthModal onClose={handleCloseAuth} />}
     </Router>
   );
 }
