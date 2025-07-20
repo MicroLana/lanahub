@@ -1,9 +1,7 @@
-// src/pages/Home.jsx
 import React from "react";
-import Navbar from "../components/Navbar.jsx";
-import Hero from "../components/Hero.jsx";
-import Categories from "../components/Categories.jsx";
-import ServicesGrid from "../components/ServicesGrid.jsx";
+import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
+import Categories from "../components/Categories";
 
 export default function Home({ user, onRegister }) {
   return (
@@ -11,7 +9,6 @@ export default function Home({ user, onRegister }) {
       <Navbar user={user} onRegister={onRegister} />
       <Hero />
       <Categories />
-      <ServicesGrid />
     </>
   );
 }
