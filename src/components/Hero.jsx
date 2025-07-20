@@ -7,10 +7,10 @@ export default function Hero() {
   return (
     <div className="bg-green-600 text-white py-16 text-center">
       <h1 className="text-4xl md:text-5xl font-bold mb-4">
-        Find Trusted Professionals in Zimbabwe
+        Connect with Local Professionals in Zimbabwe near you.
       </h1>
       <p className="text-lg mb-6">
-        Skip the guesswork and instantly connect to Verified Local Electricians, Plumbers, Housekeepers, Motor Mechanics... near you.
+        Skip the Guesswork - instantly connect and Book Services of Vetted Local Electricians, Plumbers, Housekeepers, Motor Mechanics... near you.
       </p>
       <button
         onClick={() => navigate("/auth")}
