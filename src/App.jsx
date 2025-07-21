@@ -13,10 +13,11 @@ import {
 } from "firebase/auth";
 import { auth } from "./firebase";
 
+import Layout from "./components/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
 import ServiceDetailsPage from "./pages/ServiceDetailsPage.jsx";
-import Services from "./pages/Services.jsx"; // ✅ Import Services Page
+import Services from "./pages/Services.jsx";
 import ProfileModal from "./components/ProfileModal.jsx";
 
 function AppContent() {
@@ -24,7 +25,7 @@ function AppContent() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ 1. Listen for auth state changes
+  // Listen for auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -32,7 +33,7 @@ function AppContent() {
     return unsubscribe;
   }, []);
 
-  // ✅ 2. Handle magic link sign-in & 30-minute expiry
+  // Handle magic link sign-in & 30-minute expiry
   useEffect(() => {
     if (isSignInWithEmailLink(auth, window.location.href)) {
       let email = window.localStorage.getItem("emailForSignIn");
@@ -71,21 +72,26 @@ function AppContent() {
       <Routes>
         <Route
           path="/"
-          element={<Home user={user} onRegister={() => setShowModal(true)} />}
-        />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route path="/services" element={<Services />} /> {/* ✅ Register Services Page */}
-        <Route
-          path="/service/:id"
-          element={
-            user?.emailVerified ? (
-              <ServiceDetailsPage />
-            ) : (
-              <Navigate to="/auth" replace />
-            )
-          }
-        />
-        <Route path="*" element={<Navigate to="/" replace />} />
+          element={<Layout onRegister={() => setShowModal(true)} user={user} />}
+        >
+          <Route
+            index
+            element={<Home user={user} onRegister={() => setShowModal(true)} />}
+          />
+          <Route path="auth" element={<AuthPage />} />
+          <Route path="services" element={<Services />} />
+          <Route
+            path="service/:id"
+            element={
+              user?.emailVerified ? (
+                <ServiceDetailsPage />
+              ) : (
+                <Navigate to="/auth" replace />
+              )
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
       </Routes>
     </>
   );

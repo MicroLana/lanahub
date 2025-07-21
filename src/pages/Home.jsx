@@ -1,14 +1,21 @@
+// src/pages/Home.jsx
 import React from "react";
-import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import Categories from "../components/Categories";
+import ServicesSection from "../components/ServicesSection";
+import HowItWorksUser from "../components/HowItWorksUser";
+import HowItWorksPro from "../components/HowItWorksPro";
+import PartnersSection from "../components/PartnersSection";
+import Footer from "../components/Footer";
 
-export default function Home({ user, onRegister }) {
+export default function Home() {
   return (
     <>
-      <Navbar user={user} onRegister={onRegister} />
       <Hero />
-      <Categories />
+      <ServicesSection />
+      <HowItWorksUser />
+      <HowItWorksPro />
+      <PartnersSection />
+      <Footer />
     </>
   );
 }
