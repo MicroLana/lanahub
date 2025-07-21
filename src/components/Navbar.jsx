@@ -45,11 +45,11 @@ export default function Navbar({ onRegister, user }) {
 
   return (
     <nav className="flex justify-between items-center p-4 bg-white shadow-md relative z-50">
-      <Link to="/" className="text-4xl font-bold text-green-600">
+      <Link to="/" className="text-5xl font-bold text-green-600">
         Lanahub
       </Link>
 
-      <div className="flex gap-12 items-center text-lg font-bold">
+      <div className="flex gap-16 items-center">
         {/* Services Dropdown */}
         <div
           className="relative"
@@ -57,7 +57,7 @@ export default function Navbar({ onRegister, user }) {
           onMouseEnter={() => openMenu(setServicesOpen, serviceTimer)}
           onMouseLeave={() => closeMenuWithDelay(setServicesOpen, serviceTimer)}
         >
-          <button className="text-gray-700 hover:text-green-600 px-2">
+          <button className="text-lg font-bold text-gray-700 hover:text-green-600 px-4 py-2">
             Services
           </button>
           {servicesOpen && (
@@ -96,7 +96,7 @@ export default function Navbar({ onRegister, user }) {
           onMouseEnter={() => openMenu(setPartnersOpen, partnerTimer)}
           onMouseLeave={() => closeMenuWithDelay(setPartnersOpen, partnerTimer)}
         >
-          <button className="text-gray-700 hover:text-green-600 px-2">
+          <button className="text-lg font-bold text-gray-700 hover:text-green-600 px-4 py-2">
             Partners
           </button>
           {partnersOpen && (
@@ -119,19 +119,19 @@ export default function Navbar({ onRegister, user }) {
           onMouseEnter={() => openMenu(setSupportOpen, supportTimer)}
           onMouseLeave={() => closeMenuWithDelay(setSupportOpen, supportTimer)}
         >
-          <button className="text-gray-700 hover:text-green-600 px-2">
+          <button className="text-lg font-bold text-gray-700 hover:text-green-600 px-4 py-2">
             Support
           </button>
           {supportOpen && (
             <div className="absolute left-0 mt-2 w-64 bg-white shadow-xl rounded-lg p-2 z-50 border border-gray-200">
               {[
-                { label: "About", to: "/aboutpage" },
-                { label: "Blog", to: "/blogpage" },
-                { label: "Contact", to: "/aboutpage" },
-                { label: "FAQ", to: "/blogpage" },
+                { label: "About Us", to: "/about-lanahub" },
+                { label: "Blog", to: "/blog" },
+                { label: "Contact", to: "/contact" },
+                { label: "FAQ", to: "/faq" },
                 { divider: true },
-                { label: "Verification Process", to: "/verificationpage" },
-                { label: "Privacy Statement", to: "/legalpage" },
+                { label: "Verification Process", to: "/verification" },
+                { label: "Privacy Statement", to: "/privacy" },
               ].map((item, i) =>
                 item.divider ? (
                   <div key={i} className="border-t border-gray-200 my-2" />
@@ -152,7 +152,7 @@ export default function Navbar({ onRegister, user }) {
       </div>
 
       {/* Authentication Buttons */}
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <button className="px-4 py-2 border border-green-600 text-green-600 rounded hover:bg-green-600 hover:text-white">
           Login
         </button>

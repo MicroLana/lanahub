@@ -13,7 +13,8 @@ const partners = [
   "/images/partners/union.png",
   "/images/partners/miketechmotors.png",
   "/images/partners/solacity.png",
-   "/images/partners/ngk.png"
+   "/images/partners/ngk.png",
+    "/images/partners/tcz.png"
 
 ];
 

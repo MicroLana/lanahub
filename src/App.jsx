@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+// src/App.jsx
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,9 +17,10 @@ import { auth } from "./firebase";
 import Layout from "./components/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
-import ServiceDetailsPage from "./pages/ServiceDetailsPage.jsx";
 import Services from "./pages/Services.jsx";
+import ServiceDetailsPage from "./pages/ServiceDetailsPage.jsx";
 import ProfileModal from "./components/ProfileModal.jsx";
+import AboutLanaHub from "./pages/AboutLanaHub.jsx";
 
 function AppContent() {
   const [user, setUser] = useState(null);
@@ -33,7 +35,7 @@ function AppContent() {
     return unsubscribe;
   }, []);
 
-  // Handle magic link sign-in & 30-minute expiry
+  // Handle magic‑link sign‑in & 30‑minute expiry
   useEffect(() => {
     if (isSignInWithEmailLink(auth, window.location.href)) {
       let email = window.localStorage.getItem("emailForSignIn");
@@ -90,6 +92,7 @@ function AppContent() {
               )
             }
           />
+          <Route path="about-lanahub" element={<AboutLanaHub />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

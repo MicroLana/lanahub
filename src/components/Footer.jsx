@@ -1,42 +1,149 @@
 // src/components/Footer.jsx
 import React from "react";
+import { HashLink } from "react-router-hash-link";
 
 export default function Footer() {
+  const HEADER_OFFSET = 80; // height of your fixed header
+
+  // Scroll the page so the target is visible beneath the fixed header
+  const scrollWithOffset = (el) => {
+    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top: yCoordinate - HEADER_OFFSET, behavior: "smooth" });
+  };
+
   return (
-    <footer className="bg-primary text-light py-section-lg">
-      <div className="container mx-auto px-4 grid gap-8 grid-cols-1 md:grid-cols-3">
-        {/* About */}
+    <footer className="w-full bg-green-600 text-white rounded-3xl py-6 mt-8">
+      {/* Intro Statement */}
+      <div className="w-full text-center mb-2">
+        <p className="text-base opacity-90">
+          Connecting you with trusted local professionals—electricians, plumbers, cleaners, mechanics, and more.
+        </p>
+      </div>
+
+      {/* Separator */}
+      <div className="w-full border-t border-green-500 mb-4" />
+
+      {/* Links Grid */}
+      <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-8">
+        {/* About LanaHub */}
         <div>
-          <h4 className="text-lg font-semibold mb-2">About Lanahub</h4>
-          <p className="text-base opacity-90">
-            Connecting You with Trusted Professionals.
-          </p>
+          <h4 className="text-lg font-bold mb-2">About LanaHub</h4>
+          <ul className="space-y-1 text-base">
+            <li>
+              <HashLink
+                to="/about#vision"
+                scroll={scrollWithOffset}
+                smooth
+                className="hover:underline"
+              >
+                Vision
+              </HashLink>
+            </li>
+            <li>
+              <HashLink
+                to="/about#mission"
+                scroll={scrollWithOffset}
+                smooth
+                className="hover:underline"
+              >
+                Mission
+              </HashLink>
+            </li>
+            <li>
+              <HashLink
+                to="/about#values"
+                scroll={scrollWithOffset}
+                smooth
+                className="hover:underline"
+              >
+                Values
+              </HashLink>
+            </li>
+            <li>
+              <HashLink
+                to="/about#disclaimer"
+                scroll={scrollWithOffset}
+                smooth
+                className="hover:underline"
+              >
+                Home
+              </HashLink>
+            </li>
+            <li>
+              <HashLink
+                to="/about#contact"
+                scroll={scrollWithOffset}
+                smooth
+                className="hover:underline"
+              >
+                Disclaimer
+              </HashLink>
+            </li>
+          </ul>
         </div>
 
         {/* Quick Links */}
         <div>
-          <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
+          <h4 className="text-lg font-bold mb-2">Quick Links</h4>
           <ul className="space-y-1 text-base">
-            <li><a href="/services" className="hover:underline">Services</a></li>
-            <li><a href="/aboutpage" className="hover:underline">About</a></li>
-            <li><a href="/blogpage" className="hover:underline">Blog</a></li>
-            <li><a href="/contact" className="hover:underline">Contact</a></li>
+            <li>
+              <HashLink to="/services" className="hover:underline">
+                Services
+              </HashLink>
+            </li>
+            <li>
+              <HashLink to="/about" className="hover:underline">
+                About
+              </HashLink>
+            </li>
+            <li>
+              <HashLink to="/blog" className="hover:underline">
+                Blog
+              </HashLink>
+            </li>
+            <li>
+              <HashLink to="/contact" className="hover:underline">
+                Contact
+              </HashLink>
+            </li>
           </ul>
         </div>
 
         {/* Follow Us */}
         <div>
-          <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
-          <div className="flex gap-4">
-            <a href="#"><img src="/images/icons/facebook.svg" alt="Facebook" className="w-6 h-6"/></a>
-            <a href="#"><img src="/images/icons/twitter.svg" alt="Twitter" className="w-6 h-6"/></a>
-            <a href="#"><img src="/images/icons/instagram.svg" alt="Instagram" className="w-6 h-6"/></a>
+          <h4 className="text-lg font-bold mb-2">Follow Us</h4>
+          <div className="flex space-x-4">
+            <a href="#" aria-label="Facebook">
+              <img
+                src="/images/icons/facebook.svg"
+                alt="Facebook"
+                className="w-6 h-6"
+              />
+            </a>
+            <a href="#" aria-label="Twitter">
+              <img
+                src="/images/icons/twitter.svg"
+                alt="Twitter"
+                className="w-6 h-6"
+              />
+            </a>
+            <a href="#" aria-label="Instagram">
+              <img
+                src="/images/icons/instagram.svg"
+                alt="Instagram"
+                className="w-6 h-6"
+              />
+            </a>
           </div>
         </div>
       </div>
 
-      <div className="text-center mt-8 text-sm opacity-80">
-        ©️ {new Date().getFullYear()} Lanahub. All rights reserved.
+      {/* Bottom Separator */}
+      <div className="max-w-screen-xl mx-auto w-full border-t border-green-500 mt-6 mb-2 px-4 md:px-8" />
+
+      {/* Copyright */}
+      <div className="max-w-screen-xl mx-auto text-center text-sm opacity-80 px-4 md:px-8">
+        © {new Date().getFullYear()} LanaHub. All rights reserved.
       </div>
     </footer>
   );
