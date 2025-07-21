@@ -44,12 +44,12 @@ export default function Navbar({ onRegister, user }) {
   }, []);
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-white shadow-md relative">
-      <Link to="/" className="text-3xl font-bold text-green-600">
+    <nav className="flex justify-between items-center p-4 bg-white shadow-md relative z-50">
+      <Link to="/" className="text-4xl font-bold text-green-600">
         Lanahub
       </Link>
 
-      <div className="flex gap-12 items-center">
+      <div className="flex gap-12 items-center text-lg font-bold">
         {/* Services Dropdown */}
         <div
           className="relative"
@@ -57,72 +57,34 @@ export default function Navbar({ onRegister, user }) {
           onMouseEnter={() => openMenu(setServicesOpen, serviceTimer)}
           onMouseLeave={() => closeMenuWithDelay(setServicesOpen, serviceTimer)}
         >
-          <button className="text-gray-700 hover:text-green-600 font-bold text-lg px-2">
+          <button className="text-gray-700 hover:text-green-600 px-2">
             Services
           </button>
           {servicesOpen && (
-            <div className="absolute left-0 mt-2 w-56 bg-white shadow-lg rounded-lg p-2 z-50">
-              <Link
-                to="/services"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Electrical Repairs
-              </Link>
-              <Link
-                to="/services"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Home Renovations
-              </Link>
-              <Link
-                to="/services"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Vehicle Repairs
-              </Link>
-              <div className="border-t border-gray-200 my-2" />
-              <Link
-                to="/services"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Solar Installations
-              </Link>
-              <Link
-                to="/services"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Animal Care
-              </Link>
-              <Link
-                to="/services"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                House Keeping
-              </Link>
-              <Link
-                to="/services"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Paint and Decorations
-              </Link>
-              <Link
-                to="/services"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Plumbing
-              </Link>
-              <Link
-                to="/services"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Children Parties
-              </Link>
-              <Link
-                to="/services"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                View More
-              </Link>
+            <div className="absolute left-0 mt-2 w-64 bg-white shadow-xl rounded-lg p-2 z-50 border border-gray-200">
+              {[
+                "Electrical Repairs",
+                "Home Renovations",
+                "Vehicle Repairs",
+                "Solar Installations",
+                "Animal Care",
+                "House Keeping",
+                "Paint and Decorations",
+                "Plumbing",
+                "Children Parties",
+                "View More",
+              ].map((label, idx) => (
+                <Link
+                  key={label}
+                  to="/services"
+                  onClick={() => setServicesOpen(false)}
+                  className={`block px-4 py-2 text-sm text-black hover:bg-green-100 rounded ${
+                    idx === 3 || idx === 6 ? "border-t border-gray-200 mt-2 pt-2" : ""
+                  }`}
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
           )}
         </div>
@@ -134,14 +96,15 @@ export default function Navbar({ onRegister, user }) {
           onMouseEnter={() => openMenu(setPartnersOpen, partnerTimer)}
           onMouseLeave={() => closeMenuWithDelay(setPartnersOpen, partnerTimer)}
         >
-          <button className="text-gray-700 hover:text-green-600 font-bold text-lg px-2">
+          <button className="text-gray-700 hover:text-green-600 px-2">
             Partners
           </button>
           {partnersOpen && (
-            <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-2 z-50">
+            <div className="absolute left-0 mt-2 w-48 bg-white shadow-xl rounded-lg p-2 z-50 border border-gray-200">
               <Link
                 to="/partners"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
+                onClick={() => setPartnersOpen(false)}
+                className="block px-4 py-2 text-sm text-black hover:bg-green-100 rounded"
               >
                 Partner
               </Link>
@@ -156,48 +119,33 @@ export default function Navbar({ onRegister, user }) {
           onMouseEnter={() => openMenu(setSupportOpen, supportTimer)}
           onMouseLeave={() => closeMenuWithDelay(setSupportOpen, supportTimer)}
         >
-          <button className="text-gray-700 hover:text-green-600 font-bold text-lg px-2">
+          <button className="text-gray-700 hover:text-green-600 px-2">
             Support
           </button>
           {supportOpen && (
-            <div className="absolute left-0 mt-2 w-56 bg-white shadow-lg rounded-lg p-2 z-50">
-              <Link
-                to="/aboutpage"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                About
-              </Link>
-              <Link
-                to="/blogpage"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Blog
-              </Link>
-              <Link
-                to="/aboutpage"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Contact
-              </Link>
-              <Link
-                to="/blogpage"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                FAQ
-              </Link>
-              <div className="border-t border-gray-200 my-2" />
-              <Link
-                to="/verificationpage"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Verification Process
-              </Link>
-              <Link
-                to="/legalpage"
-                className="block px-4 py-2 text-sm text-black hover:bg-green-50 rounded transition"
-              >
-                Privacy Statement
-              </Link>
+            <div className="absolute left-0 mt-2 w-64 bg-white shadow-xl rounded-lg p-2 z-50 border border-gray-200">
+              {[
+                { label: "About", to: "/aboutpage" },
+                { label: "Blog", to: "/blogpage" },
+                { label: "Contact", to: "/aboutpage" },
+                { label: "FAQ", to: "/blogpage" },
+                { divider: true },
+                { label: "Verification Process", to: "/verificationpage" },
+                { label: "Privacy Statement", to: "/legalpage" },
+              ].map((item, i) =>
+                item.divider ? (
+                  <div key={i} className="border-t border-gray-200 my-2" />
+                ) : (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    onClick={() => setSupportOpen(false)}
+                    className="block px-4 py-2 text-sm text-black hover:bg-green-100 rounded"
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
             </div>
           )}
         </div>
@@ -208,7 +156,10 @@ export default function Navbar({ onRegister, user }) {
         <button className="px-4 py-2 border border-green-600 text-green-600 rounded hover:bg-green-600 hover:text-white">
           Login
         </button>
-        <button onClick={onRegister} className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+        <button
+          onClick={onRegister}
+          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        >
           Register
         </button>
       </div>
