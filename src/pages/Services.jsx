@@ -1,7 +1,7 @@
-// src/pages/Services.jsx
-import React, { useState, useEffect } from "react"
-import Footer from "../components/Footer"
-import { Link } from "react-router-dom"
+
+import React, { useState, useEffect } from "react";
+import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 import {
   FaPlug,
   FaTools,
@@ -30,9 +30,14 @@ import {
   FaSwimmer,
   FaRunning,
   FaBook,
-} from "react-icons/fa"
+} from "react-icons/fa";
 
-export const servicesData = [
+export const servicesData = 
+
+
+
+
+[
   {
     category: "Appliance Repairs",
     icon: <FaTv className="text-green-600 text-4xl mb-2" />,
@@ -300,17 +305,17 @@ export const servicesData = [
 ]
 
 const slugify = (text) =>
-  text.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "")
+  text.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
 
 export default function Services() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [suggestions, setSuggestions] = useState([])
+  const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
-    const term = searchTerm.trim().toLowerCase()
+    const term = searchTerm.trim().toLowerCase();
     if (!term) {
-      setSuggestions([])
-      return
+      setSuggestions([]);
+      return;
     }
     const matches = servicesData
       .filter(
@@ -320,22 +325,22 @@ export default function Services() {
             svc.toLowerCase().includes(term)
           )
       )
-      .slice(0, 3)
-    setSuggestions(matches)
-  }, [searchTerm])
+      .slice(0, 3);
+    setSuggestions(matches);
+  }, [searchTerm]);
 
   const handleSelectSuggestion = (category) => {
-    const id = slugify(category)
-    const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
-    setSearchTerm("")
-  }
+    const id = slugify(category);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    setSearchTerm("");
+  };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
       {/* Top Banner */}
-      <div className="bg-green-600 w-full text-white py-8">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <div className="bg-green-600 text-white py-8 overflow-x-hidden">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl font-bold">Find your Local Expert</h1>
           <div className="mt-6 relative">
             <input
@@ -373,15 +378,14 @@ export default function Services() {
       </div>
 
       {/* Central Quadrant */}
-      <main className="flex-grow py-10 px-4">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <main className="flex-grow py-10 overflow-x-hidden">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {servicesData.map((sec) => (
             <div
               key={sec.category}
               id={slugify(sec.category)}
               className="group relative border border-gray-200 hover:border-green-600 rounded-lg p-6 flex flex-col h-full items-center text-center shadow transition-colors duration-200"
             >
-              {/* Icon above title */}
               {sec.icon}
               <Link to="/JobCard">
                 <h2 className="text-xl font-bold mb-3 text-green-700 group-hover:text-green-900 cursor-pointer transition-colors duration-200">
@@ -393,13 +397,8 @@ export default function Services() {
                   <li key={i}>{item}</li>
                 ))}
               </ul>
-
-              {/* Hover prompt at absolute bottom center */}
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                <Link
-                  to="/JobCard"
-                  className="text-green-600 font-semibold"
-                >
+                <Link to="/JobCard" className="text-green-600 font-semibold">
                   Book Service Now
                 </Link>
               </div>
@@ -429,5 +428,5 @@ export default function Services() {
       {/* Footer */}
       <Footer />
     </div>
-  )
+  );
 }
