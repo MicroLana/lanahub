@@ -31,7 +31,7 @@ export default function Footer() {
           <ul className="space-y-1 text-base">
             <li>
               <HashLink
-                to="/about#vision"
+                to="/about-lanahub#vision"
                 scroll={scrollWithOffset}
                 smooth
                 className="hover:underline"
@@ -41,7 +41,7 @@ export default function Footer() {
             </li>
             <li>
               <HashLink
-                to="/about#mission"
+                to="/about-lanahub#mission"
                 scroll={scrollWithOffset}
                 smooth
                 className="hover:underline"
@@ -51,7 +51,7 @@ export default function Footer() {
             </li>
             <li>
               <HashLink
-                to="/about#values"
+                to="/about-lanahub#values"
                 scroll={scrollWithOffset}
                 smooth
                 className="hover:underline"
@@ -61,22 +61,22 @@ export default function Footer() {
             </li>
             <li>
               <HashLink
-                to="/about#disclaimer"
-                scroll={scrollWithOffset}
-                smooth
-                className="hover:underline"
-              >
-                Home
-              </HashLink>
-            </li>
-            <li>
-              <HashLink
-                to="/about#contact"
+                to="/about-lanahub#disclaimer"
                 scroll={scrollWithOffset}
                 smooth
                 className="hover:underline"
               >
                 Disclaimer
+              </HashLink>
+            </li>
+            <li>
+              <HashLink
+                to="/about-lanahub#contact"
+                scroll={scrollWithOffset}
+                smooth
+                className="hover:underline"
+              >
+                Contact
               </HashLink>
             </li>
           </ul>
@@ -92,7 +92,7 @@ export default function Footer() {
               </HashLink>
             </li>
             <li>
-              <HashLink to="/about" className="hover:underline">
+              <HashLink to="/about-lanahub" className="hover:underline">
                 About
               </HashLink>
             </li>
@@ -104,6 +104,16 @@ export default function Footer() {
             <li>
               <HashLink to="/contact" className="hover:underline">
                 Contact
+              </HashLink>
+            </li>
+            <li>
+              <HashLink
+                to="/policies"
+                scroll={scrollWithOffset}
+                smooth
+                className="hover:underline"
+              >
+                LanaHub Terms, Privacy & Guarantees
               </HashLink>
             </li>
           </ul>

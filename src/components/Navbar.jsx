@@ -1,3 +1,4 @@
+// src/components/Navbar.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -130,8 +131,8 @@ export default function Navbar({ onRegister, user }) {
                 { label: "Contact", to: "/contact" },
                 { label: "FAQ", to: "/faq" },
                 { divider: true },
-                { label: "Verification Process", to: "/verification" },
-                { label: "Privacy Statement", to: "/privacy" },
+                { label: "Verification Process", to: "/verification-process" },
+                { label: "Privacy Statement", to: "/policies" },
               ].map((item, i) =>
                 item.divider ? (
                   <div key={i} className="border-t border-gray-200 my-2" />

@@ -21,6 +21,8 @@ import Services from "./pages/Services.jsx";
 import ServiceDetailsPage from "./pages/ServiceDetailsPage.jsx";
 import ProfileModal from "./components/ProfileModal.jsx";
 import AboutLanaHub from "./pages/AboutLanaHub.jsx";
+import LanahubPolicies from "./pages/LanahubPolicies.jsx";
+import VerificationProcess from "./pages/VerificationProcess.jsx";
 
 function AppContent() {
   const [user, setUser] = useState(null);
@@ -93,6 +95,11 @@ function AppContent() {
             }
           />
           <Route path="about-lanahub" element={<AboutLanaHub />} />
+          <Route path="policies" element={<LanahubPolicies />} />
+          <Route
+            path="verification-process"
+            element={<VerificationProcess />}
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

@@ -3,93 +3,97 @@ import Footer from '../components/Footer.jsx';
 
 export default function AboutLanaHub() {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <main className="flex-grow container mx-auto px-4 pt-0 pb-12 lg:pt-2 lg:pb-12">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-4 text-center">
-          About LanaHub
-        </h1>
+    <div className="flex flex-col min-h-screen overflow-x-hidden bg-gray-50">
+      {/* Top Banner */}
+      <div className="bg-green-600 text-white py-8 rounded-3xl mx-4 md:mx-8 lg:mx-16">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl font-bold">About Lanahub</h1>
+        </div>
+      </div>
 
-        {/* Vision, Mission, Values & Disclaimer Grid */}
-        <section id="vision" className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-12">
+      <main className="flex-grow container mx-auto px-4 pt-8 pb-12">
+        {/* Vision, Mission, Values Stack */}
+        <section id="vision-mission-values" className="grid gap-6 grid-cols-1 mb-12 justify-items-center text-center">
           <div>
-            <h2 id="vision" className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-2 hover:text-green-500 transition-colors">
               Vision
             </h2>
             <p className="text-gray-700">
-              To be the leading on‑demand home services platform in Africa.
+              To be Africa’s premier on‑demand services platform—empowering every community with trusted local expertise, beyond just home services.
             </p>
           </div>
 
           <div>
-            <h2 id="mission" className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-2 hover:text-green-500 transition-colors">
               Mission
             </h2>
             <p className="text-gray-700">
-              Empower homeowners and professionals through seamless, transparent connections.
+              To empower homeowners and professionals with seamless, transparent connections that spark confidence and drive excellence.
             </p>
           </div>
 
           <div>
-            <h2 id="values" className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-2 hover:text-green-500 transition-colors">
               Values
             </h2>
-            <ul className="list-disc list-inside text-gray-700">
-              <li>Integrity</li>
-              <li>Quality</li>
-              <li>Reliability</li>
-              <li>Innovation</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 id="disclaimer" className="text-2xl font-semibold text-gray-900 mb-2">
-              Disclaimer
-            </h2>
             <p className="text-gray-700">
-              All service providers are independent professionals vetted by LanaHub.
+              Integrity, Quality, Reliability, Innovation.
             </p>
           </div>
         </section>
 
-        {/* Core Messaging */}
-        <section>
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-            LanaHub isn’t just another service‑booking app—it’s a catalyst for your home’s digital transformation. We’ve built a pioneering, end‑to‑end marketplace that seamlessly connects you with a curated network of local professionals—electricians, plumbers, mechanics, cleaners, gardeners, painters, personal trainers, solar installers, pet groomers and more—so you can stop chasing quotes and start enjoying results.
-          </p>
+        {/* About Section */}
+        <section id="about" className="mb-12 text-center">
+          <h1 className="text-3xl font-extrabold text-gray-900 mb-4 hover:text-green-500 transition-colors">
+            Our Story
+          </h1>
+          <div className="prose prose-lg mx-auto text-gray-700 text-justify">
+            <p>
+              It all began with a simple but persistent challenge: keeping track of a sprawling contact list of tradespeople who often found themselves overlooked, and struggling to source reliable help from afar. Frustrated by endless calls, missed connections and unfulfilled promises, we envisioned a solution that would redefine the way homeowners and professionals connect with local experts. That vision grew into LanaHub.
+            </p>
+            <p>
+              From day one, we set out to build more than just another service‑booking app. We dreamed of a truly end‑to‑end marketplace that brings the entire process online—from discovery and vetting through to payment and feedback. By harnessing the power of artificial intelligence and thoughtful design, LanaHub now seamlessly links you to a handpicked network of electricians, plumbers, mechanics, cleaners, gardeners, painters, trainers, solar installers, pet groomers and so many more—without the usual hassle of chasing quotes or wondering if you can trust the person showing up at your door.
+            </p>
+            <p>
+              Our proprietary smart‑matching engine lies at the heart of LanaHub. When you post a job, our system reads your requirements, considers your budget and instantly delivers three top‑ranked experts. Each comes with a badge—Verified, Gold, Silver or Registered—earned through rigorous background checks, performance histories and real‑time sentiment analysis. One‑click Google sign‑in or biometric authentication means you’re secure from the start, so you can post your job with confidence and watch the bids roll in.
+            </p>
+            <p>
+              But our story doesn’t end there. Behind the scenes, our AI continuously ingests customer feedback and performance data to generate dynamic insights. Every post‑service survey and review refines each professional’s scorecard, propelling a cycle of improvement that keeps quality rising as we grow. This feedback loop ensures that every future job benefits from the lessons learned in the last one.
+            </p>
+            <p>
+              We didn’t forget the tradespeople themselves. LanaHub reimagines their business model with an affordable subscription that unlocks partner perks—discounted tools, materials and shared marketing opportunities. Real‑time analytics dashboards let pros benchmark against peers, fine‑tune their pricing and convert feedback into personalized skills development. It’s a win‑win, empowering service providers to deliver consistent, top‑tier performance while expanding their client base.
+            </p>
+            <p>
+              Today, LanaHub stands for more than just convenience. It’s a transformational digital experience that elevates home maintenance and professional services to an art form. Whether you’re a homeowner, renter or busy professional, our platform gives you the freedom to delegate with ease, enhance your living space and embrace a future where trusted local expertise is only a tap away. Welcome to the LanaHub revolution—post your next job and watch your world transform.
+            </p>
+          </div>
+        </section>
 
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-            Experience the power of AI‑driven discovery and robust, multi‑layered credential verification. Our proprietary smart‑matching engine analyzes your custom job request, factors in your budget, and suggests the three best pre‑screened experts—each bearing a Verified, Gold, Silver or Registered badge based on rigorous background checks, performance history and real‑time sentiment data. Instant, location‑based search meets enterprise‑grade security: sign up with one‑click Google or biometric authentication, then post your job and watch the bids roll in.
-          </p>
-
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-            Behind the scenes, our advanced AI continuously ingests customer feedback, generates dynamic performance insights and triggers personalized post‑service surveys that drive measurable, sentiment‑based improvements. Every review a professional receives refines their scorecard, ensuring the LanaHub ecosystem delivers ever‑higher quality as we scale.
-          </p>
-
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-            For our pros, we’ve reimagined the business model. An affordable subscription unlocks exclusive partner perks—discounted tools, materials and co‑marketing opportunities—that empower service providers to grow their client base and delight customers with consistent, top‑tier performance. Through real‑time analytics dashboards, they can benchmark against peers, optimize pricing strategies and transform feedback into actionable skills development.
-          </p>
-
-          <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-            LanaHub is more than convenience—it’s a transformational digital experience that elevates home maintenance to an art form. Whether you’re a homeowner, renter or busy professional, our platform gives you the confidence to delegate with ease, improve your living space and embrace a future where trusted local expertise is only a tap away. Join the digital revolution—post your next job on LanaHub and watch your world transform.
-          </p>
-
-          <blockquote className="border-l-4 border-green-500 pl-4 italic text-gray-600 mb-8">
-            “Connecting you with vetted electricians, motor mechanics, plumbers, cleaners, gardeners, painters, personal trainers, fitness coaches, cell phone technicians, house managers, pet groomers, solar installers, movers and many more.”
-          </blockquote>
+        {/* Disclaimer Section */}
+        <section id="disclaimer" className="mb-12 text-center">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-2 hover:text-green-500 transition-colors">
+            Disclaimer
+          </h2>
+          <div className="prose prose-lg mx-auto text-gray-700 text-justify">
+            <p>
+              All service providers featured on LanaHub operate as independent professionals. While we perform thorough vetting—including identity verification, background checks, and performance reviews—to help ensure quality and reliability, LanaHub acts solely as a facilitator. We do not employ, recommend, supervise, or control the work of any tradesperson, nor guarantee the outcome of any service. Any agreements, contracts, payments and disputes are strictly between you and the chosen professional.
+            </p>
+          </div>
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="mt-12">
-          <h2 id="contact" className="text-2xl font-semibold text-gray-900 mb-4 text-center">
+        <section id="contact" className="mt-12 text-center">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-4 hover:text-green-500 transition-colors">
             Get in Touch
           </h2>
-          <p className="text-gray-700 text-center">
+          <p className="text-gray-700">
             Have questions or need further assistance? Reach out to our support team at{' '}
             <a href="mailto:support@lanahub.com" className="text-green-600 hover:underline">
               support@lanahub.com
             </a>.
           </p>
         </section>
+
       </main>
 
       <Footer />
