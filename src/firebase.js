@@ -5,10 +5,10 @@ import {
   GoogleAuthProvider,
   isSignInWithEmailLink,
   sendSignInLinkToEmail,
-  signInWithEmailLink
+  signInWithEmailLink,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-
+import { getStorage } from "firebase/storage";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyARyzwx8JuIGWFpNflDjkHvChyyrl_G1QM",
@@ -16,7 +16,7 @@ const firebaseConfig = {
   projectId: "lanahub-f3079",
   storageBucket: "lanahub-f3079.firebasestorage.app",
   messagingSenderId: "1034290621711",
-  appId: "1:1034290621711:web:145e7ad2fffe5d8ed9a27a"
+  appId: "1:1034290621711:web:145e7ad2fffe5d8ed9a27a",
 };
 
 // Initialize Firebase
@@ -33,5 +33,6 @@ export const db = getFirestore(app);
 export const actionCodeSettings = {
   // After email link click, return them here:
   url: window.location.origin + "/auth",
-  handleCodeInApp: true
+  handleCodeInApp: true,
 };
+export const storage = getStorage(app);
