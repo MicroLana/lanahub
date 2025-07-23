@@ -43,9 +43,11 @@ export default function Navbar({ onRegister, user }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
   const shouldShowRegister =
     !window.location.pathname.endsWith("user-registration") &&
     !window.location.pathname.endsWith("service-provider-registration");
+
   return (
     <nav className="flex justify-between items-center p-4 bg-white shadow-md relative z-50">
       <Link to="/" className="text-5xl font-bold text-green-600">
@@ -158,9 +160,12 @@ export default function Navbar({ onRegister, user }) {
 
       {/* Authentication Buttons */}
       <div className="flex gap-4">
-        <button className="px-4 py-2 border border-green-600 text-green-600 rounded hover:bg-green-600 hover:text-white">
+        <Link
+          to="/login"
+          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        >
           Login
-        </button>
+        </Link>
         {shouldShowRegister && (
           <button
             onClick={onRegister}

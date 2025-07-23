@@ -25,6 +25,9 @@ import LanahubPolicies from "./pages/LanahubPolicies.jsx";
 import VerificationProcess from "./pages/VerificationProcess.jsx";
 import UserRegistrationPage from "./pages/UserRegistrationPage.jsx";
 import ServiceProviderPage from "./pages/ServiceProviderPage.jsx";
+import LanahubLogin from "./pages/LanahubLogin.jsx";
+
+
 function AppContent() {
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -75,6 +78,7 @@ function AppContent() {
       )}
 
       <Routes>
+        {/* Main app wrapped in your Layout */}
         <Route
           path="/"
           element={<Layout onRegister={() => setShowModal(true)} user={user} />}
@@ -103,11 +107,16 @@ function AppContent() {
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
+
+        {/* Standalone pages */}
         <Route path="/user-registration" element={<UserRegistrationPage />} />
         <Route
           path="/service-provider-registration"
           element={<ServiceProviderPage />}
         />
+
+        {/* Login route */}
+        <Route path="/login" element={<LanahubLogin />} />
       </Routes>
     </>
   );
