@@ -102,6 +102,11 @@ function AppContent() {
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
+        <Route path="/user-registration" element={<UserRegistrationPage />} />
+        <Route
+          path="/service-provider-registration"
+          element={<ServiceProviderPage />}
+        />
       </Routes>
     </>
   );
