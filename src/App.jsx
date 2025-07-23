@@ -23,7 +23,8 @@ import ProfileModal from "./components/ProfileModal.jsx";
 import AboutLanaHub from "./pages/AboutLanaHub.jsx";
 import LanahubPolicies from "./pages/LanahubPolicies.jsx";
 import VerificationProcess from "./pages/VerificationProcess.jsx";
-
+import UserRegistrationPage from "./pages/UserRegistrationPage.jsx";
+import ServiceProviderPage from "./pages/ServiceProviderPage.jsx";
 function AppContent() {
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
