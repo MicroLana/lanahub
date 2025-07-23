@@ -1,0 +1,5 @@
+{
+  "sendgrid": {
+    "apikey": "YOUR_SENDGRID_API_KEY"
+  }
+}
