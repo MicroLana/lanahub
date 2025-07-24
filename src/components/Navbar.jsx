@@ -103,7 +103,10 @@ export default function Navbar({ onRegister }) {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Find Professional updated to lowercase and dash
   const servicesItems = [
+    { label: "Find Professional", to: "/find-professional" },
+    { divider: true },
     { label: "Electrical Repairs", to: "/services" },
     { label: "Home Renovations", to: "/services" },
     { label: "Vehicle Repairs", to: "/services" },

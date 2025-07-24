@@ -18,16 +18,14 @@ import Layout from "./components/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
 import Services from "./pages/Services.jsx";
-import ServiceDetailsPage from "./pages/ServiceDetailsPage.jsx";
 import ProfileModal from "./components/ProfileModal.jsx";
 import AboutLanaHub from "./pages/AboutLanaHub.jsx";
 import LanahubPolicies from "./pages/LanahubPolicies.jsx";
 import VerificationProcess from "./pages/VerificationProcess.jsx";
-// Remove old user registration import
-// import UserRegistrationPage from "./pages/UserRegistrationPage.jsx";
 import LanahubLogin from "./pages/LanahubLogin.jsx";
 import NewSPRegistration from "./pages/NewSPRegistration.jsx";
 import NewUserRegistration from "./pages/NewUserRegistration.jsx";
+import FindProfessional from "./pages/FindProfessional.jsx";
 
 function AppContent() {
   const [user, setUser] = useState(null);
@@ -90,6 +88,7 @@ function AppContent() {
           />
           <Route path="auth" element={<AuthPage />} />
           <Route path="services" element={<Services />} />
+          {/* 
           <Route
             path="service/:id"
             element={
@@ -99,7 +98,8 @@ function AppContent() {
                 <Navigate to="/auth" replace />
               )
             }
-          />
+          /> 
+          */}
           <Route path="about-lanahub" element={<AboutLanaHub />} />
           <Route path="policies" element={<LanahubPolicies />} />
           <Route
@@ -115,6 +115,7 @@ function AppContent() {
           path="/service-provider-registration"
           element={<NewSPRegistration />}
         />
+        <Route path="/find-professional" element={<FindProfessional />} />
 
         {/* Login route */}
         <Route path="/login" element={<LanahubLogin />} />

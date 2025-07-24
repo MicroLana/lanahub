@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
@@ -32,12 +31,7 @@ import {
   FaBook,
 } from "react-icons/fa";
 
-export const servicesData = 
-
-
-
-
-[
+export const servicesData = [
   {
     category: "Appliance Repairs",
     icon: <FaTv className="text-green-600 text-4xl mb-2" />,
@@ -302,7 +296,7 @@ export const servicesData =
       "AC Repairs",
     ],
   },
-]
+];
 
 const slugify = (text) =>
   text.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
@@ -367,7 +361,7 @@ export default function Services() {
           {/* Global Book Now Button */}
           <div className="flex justify-center mt-6">
             <Link
-              to="/JobCard"
+              to="/FindProfessional"
               className="flex items-center bg-white text-green-600 font-semibold px-5 py-2 rounded-full shadow hover:bg-gray-100 transition-colors duration-200"
             >
               <FaBook className="mr-2" />
@@ -387,7 +381,8 @@ export default function Services() {
               className="group relative border border-gray-200 hover:border-green-600 rounded-lg p-6 flex flex-col h-full items-center text-center shadow transition-colors duration-200"
             >
               {sec.icon}
-              <Link to="/JobCard">
+              {/* Category Name Clickable and navigates to /FindProfessional */}
+              <Link to="/FindProfessional">
                 <h2 className="text-xl font-bold mb-3 text-green-700 group-hover:text-green-900 cursor-pointer transition-colors duration-200">
                   {sec.category}
                 </h2>
@@ -397,9 +392,10 @@ export default function Services() {
                   <li key={i}>{item}</li>
                 ))}
               </ul>
+              {/* Hover Button - renamed and clickable */}
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                <Link to="/JobCard" className="text-green-600 font-semibold">
-                  Book Service Now
+                <Link to="/FindProfessional" className="text-green-600 font-semibold">
+                  Find an Expert Now
                 </Link>
               </div>
             </div>
@@ -409,7 +405,7 @@ export default function Services() {
         {/* Quadrant Bottom Book Now */}
         <div className="flex justify-center mt-8">
           <Link
-            to="/JobCard"
+            to="/FindProfessional"
             className="flex items-center bg-green-600 text-white font-semibold px-5 py-2 rounded-full shadow hover:bg-green-700 transition-colors duration-200"
           >
             <FaBook className="mr-2" />
