@@ -105,21 +105,14 @@ export default function Navbar({ onRegister }) {
 
   // Find Professional updated to lowercase and dash
   const servicesItems = [
-    { label: "Find Professional", to: "/find-professional" },
+    
+   { label: "View Services", to: "/services" },
+
     { divider: true },
-    //{ label: "Electrical Repairs", to: "/services" },
-    //{ label: "Home Renovations", to: "/services" },
-    //{ label: "Vehicle Repairs", to: "/services" },
-   // { label: "Solar Installations", to: "/services" },
-    //{ divider: true },
-    //{ label: "Animal Care", to: "/services" },
-    //{ label: "House Keeping", to: "/services" },
-    //{ divider: true },
-    //{ label: "Paint and Decorations", to: "/services" },
-    //{ label: "Plumbing", to: "/services" },
-    //{ label: "Children Parties", to: "/services" },
-    //{ divider: true },
-    { label: "View Services", to: "/services" }
+  
+
+  
+   { label: "Find Professional", to: "/find-professional" },
   ];
 
   const partnersItems = [
