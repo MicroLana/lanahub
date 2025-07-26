@@ -7,51 +7,27 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
-<<<<<<< HEAD
-=======
-
->>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
 import {
   onAuthStateChanged,
   isSignInWithEmailLink,
   signInWithEmailLink,
 } from "firebase/auth";
 import { auth } from "./firebase";
-<<<<<<< HEAD
 
-=======
->>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
 import Layout from "./components/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
 import Services from "./pages/Services.jsx";
-<<<<<<< HEAD
-=======
 import ServiceDetailsPage from "./pages/ServiceDetailsPage.jsx";
->>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
 import ProfileModal from "./components/ProfileModal.jsx";
 import AboutLanaHub from "./pages/AboutLanaHub.jsx";
 import LanahubPolicies from "./pages/LanahubPolicies.jsx";
-import VerificationProcess from "./pages/VerificationProcess.jsx";
-<<<<<<< HEAD
-import LanahubLogin from "./pages/LanahubLogin.jsx";
-import NewSPRegistration from "./pages/NewSPRegistration.jsx";
-import NewUserRegistration from "./pages/NewUserRegistration.jsx";
-import FindProfessional from "./pages/FindProfessional.jsx";
-=======
-import UserRegistrationPage from "./pages/UserRegistrationPage.jsx";
-import ServiceProviderPage from "./pages/ServiceProviderPage.jsx";
-import LanahubLogin from "./pages/LanahubLogin.jsx";
->>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
 
 function AppContent() {
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-<<<<<<< HEAD
 
-=======
->>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
   // Listen for auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -89,11 +65,7 @@ function AppContent() {
         });
     }
   }, [navigate]);
-<<<<<<< HEAD
 
-=======
-  // Using Firebase Auth in React
->>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
   return (
     <>
       {showModal && user?.emailVerified && (
@@ -101,7 +73,6 @@ function AppContent() {
       )}
 
       <Routes>
-        {/* Main app wrapped in your Layout */}
         <Route
           path="/"
           element={<Layout onRegister={() => setShowModal(true)} user={user} />}
@@ -112,10 +83,6 @@ function AppContent() {
           />
           <Route path="auth" element={<AuthPage />} />
           <Route path="services" element={<Services />} />
-<<<<<<< HEAD
-          {/* 
-=======
->>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
           <Route
             path="service/:id"
             element={
@@ -125,42 +92,11 @@ function AppContent() {
                 <Navigate to="/auth" replace />
               )
             }
-<<<<<<< HEAD
-          /> 
-          */}
-=======
           />
->>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
           <Route path="about-lanahub" element={<AboutLanaHub />} />
           <Route path="policies" element={<LanahubPolicies />} />
-          <Route
-            path="verification-process"
-            element={<VerificationProcess />}
-          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
-
-        {/* Standalone pages */}
-<<<<<<< HEAD
-        <Route path="/user-registration" element={<NewUserRegistration />} />
-        <Route
-          path="/service-provider-registration"
-          element={<NewSPRegistration />}
-        />
-
-        <Route path="/FindProfessional" element={<FindProfessional />} />
-
-=======
-        <Route path="/user-registration" element={<UserRegistrationPage />} />
-        <Route
-          path="/service-provider-registration"
-          element={<ServiceProviderPage />}
-        />
-
->>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
-        {/* Login route */}
-        <Route path="/login" element={<LanahubLogin />} />
-        <Route path="/home" element={<Home />} />
       </Routes>
     </>
   );

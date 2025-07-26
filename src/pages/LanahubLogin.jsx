@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// src/pages/LanahubLogin.jsx
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ResetPassword from "./resetpassword.jsx";
@@ -41,7 +45,10 @@ export default function LanahubLogin() {
         <h1 className="text-3xl font-bold text-center text-green-600 mb-6">
           Lanahub
         </h1>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
         {/* Email / Phone */}
         <div className="mb-5">
           <label className="block text-green-600 font-medium mb-1">
@@ -56,7 +63,10 @@ export default function LanahubLogin() {
             required
           />
         </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
         {/* Password / PIN */}
         <div className="mb-4">
           <label className="block text-green-600 font-medium mb-1">
@@ -72,7 +82,10 @@ export default function LanahubLogin() {
           />
         </div>
 
+<<<<<<< HEAD
         {/* Forgot Password */}
+=======
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
         <div className="flex justify-end mb-6">
           <button
             type="button"
@@ -82,8 +95,12 @@ export default function LanahubLogin() {
             Forgot Password
           </button>
         </div>
+<<<<<<< HEAD
 
         {/* Action Buttons */}
+=======
+        {error && <p className="text-red-600 text-center mb-4">{error}</p>}
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
         <div className="flex gap-4 mb-4">
           <button
             type="submit"
@@ -100,10 +117,17 @@ export default function LanahubLogin() {
           </button>
         </div>
 
+<<<<<<< HEAD
         <p className="text-center text-sm text-green-600">
           Lanahub Copyright 2025
         </p>
 
+=======
+        {/* User Info Display */}
+        <p className="text-center text-sm text-green-600">
+          Lanahub Copyright 2025
+        </p>
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
         {/* Reset Password Modal */}
         {resetModalOpen && (
           <ResetPassword onClose={() => setResetModalOpen(false)} />

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //Developed by Mr N~G~K
 
 import React from "react";
@@ -15,14 +16,35 @@ const steps = [
   {
     title: "Get Work Done",
     desc: "Sit back while the job gets handled properly.",
+=======
+import React from "react";
+
+const steps = [
+  {
+    title: "Search Services",
+    //desc: "Find what you need in seconds",
+  },
+  {
+    title: "Book a Pro",
+   // desc: "Select a time that works for you",
+  },
+  {
+    title: "Get It Done",
+   // desc: "Relax while experts handle it",
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
   },
 ];
 
 export default function HowItWorksUser() {
+<<<<<<< HEAD
   const navigate = useNavigate();
 
   return (
     <section className="py-section bg-white">
+=======
+  return (
+    //<section className="py-section">
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
       <div className="container mx-auto px-4">
         <h2 className="text-h2 text-dark font-bold text-center mb-8">
           How It Works for You
@@ -42,6 +64,7 @@ export default function HowItWorksUser() {
         </div>
 
         <div className="text-center mt-8">
+<<<<<<< HEAD
           <button
             onClick={() => navigate("/user-registration")}
             className="bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700 transition-colors duration-200"
@@ -53,3 +76,14 @@ export default function HowItWorksUser() {
     </section>
   );
 }
+=======
+          <button className="bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-700">
+            Get Started Today
+          </button>
+        </div>
+
+      </div>
+   // </section>
+  );
+}
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be

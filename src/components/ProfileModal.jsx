@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
+<<<<<<< HEAD
 //import UserProfileForm from "./UserProfileForm";
 //import ProviderProfileForm from "./ProviderProfileForm";
+=======
+import UserProfileForm from "./UserProfileForm";
+import ProviderProfileForm from "./ProviderProfileForm";
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
 
 export default function ProfileModal({ onClose }) {
   const [showModal, setShowModal] = useState(false);

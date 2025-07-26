@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
 import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
@@ -31,7 +35,16 @@ import {
   FaBook,
 } from "react-icons/fa";
 
+<<<<<<< HEAD
 export const servicesData = [
+=======
+export const servicesData = 
+
+
+
+
+[
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
   {
     category: "Appliance Repairs",
     icon: <FaTv className="text-green-600 text-4xl mb-2" />,
@@ -296,7 +309,11 @@ export const servicesData = [
       "AC Repairs",
     ],
   },
+<<<<<<< HEAD
 ];
+=======
+]
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
 
 const slugify = (text) =>
   text.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
@@ -361,11 +378,19 @@ export default function Services() {
           {/* Global Book Now Button */}
           <div className="flex justify-center mt-6">
             <Link
+<<<<<<< HEAD
               to="/FindProfessional"
               className="flex items-center bg-white text-green-600 font-semibold px-5 py-2 rounded-full shadow hover:bg-gray-100 transition-colors duration-200"
             >
               <FaBook className="mr-2" />
               Find Professional Now.
+=======
+              to="/JobCard"
+              className="flex items-center bg-white text-green-600 font-semibold px-5 py-2 rounded-full shadow hover:bg-gray-100 transition-colors duration-200"
+            >
+              <FaBook className="mr-2" />
+              Book Now
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
             </Link>
           </div>
         </div>
@@ -381,8 +406,12 @@ export default function Services() {
               className="group relative border border-gray-200 hover:border-green-600 rounded-lg p-6 flex flex-col h-full items-center text-center shadow transition-colors duration-200"
             >
               {sec.icon}
+<<<<<<< HEAD
               {/* Category Name Clickable and navigates to /FindProfessional */}
               <Link to="/FindProfessional">
+=======
+              <Link to="/JobCard">
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
                 <h2 className="text-xl font-bold mb-3 text-green-700 group-hover:text-green-900 cursor-pointer transition-colors duration-200">
                   {sec.category}
                 </h2>
@@ -392,10 +421,16 @@ export default function Services() {
                   <li key={i}>{item}</li>
                 ))}
               </ul>
+<<<<<<< HEAD
               {/* Hover Button - renamed and clickable */}
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                 <Link to="/FindProfessional" className="text-green-600 font-semibold">
                   Find an Expert Now
+=======
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <Link to="/JobCard" className="text-green-600 font-semibold">
+                  Book Service Now
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
                 </Link>
               </div>
             </div>
@@ -405,22 +440,40 @@ export default function Services() {
         {/* Quadrant Bottom Book Now */}
         <div className="flex justify-center mt-8">
           <Link
+<<<<<<< HEAD
             to="/FindProfessional"
             className="flex items-center bg-green-600 text-white font-semibold px-5 py-2 rounded-full shadow hover:bg-green-700 transition-colors duration-200"
           >
             <FaBook className="mr-2" />
             Search for Professional
+=======
+            to="/JobCard"
+            className="flex items-center bg-green-600 text-white font-semibold px-5 py-2 rounded-full shadow hover:bg-green-700 transition-colors duration-200"
+          >
+            <FaBook className="mr-2" />
+            Book Now
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
           </Link>
         </div>
       </main>
 
       {/* Bottom Text */}
       <div className="text-center text-gray-700 px-4 py-6">
+<<<<<<< HEAD
         Access vetted, background checked professionals from Electricians and Plumbers to Housekeepers, Motor Mechanics, and more—for reliable, hassle‑free home services at your fingertips.
+=======
+        Access professional, background‑checked electricians, plumbers,
+        housekeepers, mechanics and more—hassle‑free home services at your
+        fingertips.
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
       </div>
 
       {/* Footer */}
       <Footer />
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be

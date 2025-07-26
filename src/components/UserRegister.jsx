@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { db, storage } from "../firebase";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+<<<<<<< HEAD
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
+=======
+import { v4 as uuidv4 } from "uuid";
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
 import { useEffect } from "react";
 import CustomSelect from "../components/CitySelect";
 import { useAuth } from "../context/AuthContext";
@@ -17,10 +21,16 @@ function RegisterForm() {
     userType: "client",
     fullName: "",
     surname: "",
+<<<<<<< HEAD
     suburb: "",
     city: "",
   });
 
+=======
+    city: "",
+    suburb: "",
+  });
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
   const cityOptions = [
     { value: "Harare", label: "Harare" },
     { value: "Mutare", label: "Mutare" },
@@ -34,7 +44,10 @@ function RegisterForm() {
   const [registerMsg, setRegisterMsg] = useState(null);
   const [registerMsgClass, setRegisterMsgClass] = useState("text-red-500");
   const { register, user } = useAuth();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -51,6 +64,7 @@ function RegisterForm() {
 
     try {
       const userDoc = {
+<<<<<<< HEAD
         email: formData.email,
         password: formData.password,
         mobile: formData.phoneNumber,
@@ -62,6 +76,18 @@ function RegisterForm() {
         createdAt: new Date().toISOString(),
       };
 
+=======
+        mobile: formData.phoneNumber,
+        email: formData.email,
+        password: formData.password,
+        role: formData.userType,
+        fullName: formData.fullName,
+        surName: formData.surname,
+        city: formData.city,
+        suburb: formData.suburb,
+        createdAt: new Date().toISOString(),
+      };
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
       await register(userDoc);
       console.log("User registered successfully" + (await user));
       setRegisterMsg("User Registered Successfully. Please Login.");
@@ -83,6 +109,10 @@ function RegisterForm() {
   // Validate fields on change
   const validateField = (name, value) => {
     let error = "";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
     switch (name) {
       case "fullName":
       case "surname":
@@ -91,6 +121,20 @@ function RegisterForm() {
         if (!nameRegex.test(value)) {
           error = "Only letters and spaces, max 20 chars.";
         }
+<<<<<<< HEAD
+=======
+        break;
+      case "phoneNumber":
+        if (!phoneRegex.test(value)) {
+          error = "Only numbers, max 15 digits.";
+        }
+        break;
+      case "email":
+        if (!emailRegex.test(value) || value.length > 30) {
+          error = "Invalid email format or too long (max 30 chars).";
+        }
+        break;
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
       case "password":
         if (!value) {
           error = "Password is required.";
@@ -123,15 +167,25 @@ function RegisterForm() {
       default:
         break;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
     setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
   // Update validation on input change
   const handleValidatedChange = (e) => {
     handleChange(e);
+<<<<<<< HEAD
     // Always validate the field, but skip validation for empty 'nationality'
     if (e.target.name === "city" && e.target.value === "") {
       setErrors((prev) => ({ ...prev, nationality: "" }));
+=======
+    // Always validate the field, but skip validation for empty 'city'
+    if (e.target.name === "city" && e.target.value === "") {
+      setErrors((prev) => ({ ...prev, city: "" }));
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
     } else {
       validateField(e.target.name, e.target.value);
     }
@@ -148,8 +202,15 @@ function RegisterForm() {
       "phoneNumber",
       "suburb",
     ];
+<<<<<<< HEAD
     const allFilled = requiredFields.every((field) => formData[field]);
     const noErrors = Object.values(errors).every((err) => !err);
+=======
+
+    const allFilled = requiredFields.every((field) => formData[field]);
+    const noErrors = Object.values(errors).every((err) => !err);
+
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
     setIsFormValid(allFilled && noErrors);
   };
 
@@ -164,6 +225,10 @@ function RegisterForm() {
       setFormData((prev) => ({ ...prev, confirmPassword: "" }));
     }
   }, [formData.password]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
   return (
     <form
       onSubmit={handleSubmit}
@@ -255,6 +320,7 @@ function RegisterForm() {
           )}
         </div>
         <div>
+<<<<<<< HEAD
           <input
             name="nationality"
             placeholder="Nationality"
@@ -280,6 +346,8 @@ function RegisterForm() {
           )}
         </div>
         <div>
+=======
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
           <CustomSelect
             name="city"
             id="city-select"
@@ -302,6 +370,15 @@ function RegisterForm() {
           />
         </div>
       </div>
+<<<<<<< HEAD
+=======
+      <div>
+        {registerMsg && (
+          <span className={registerMsgClass + " text-xs"}>{registerMsg}</span>
+        )}
+      </div>
+
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
       <button
         type="submit"
         className={`bg-blue-600 text-white font-semibold py-2 rounded-lg transition-colors ${

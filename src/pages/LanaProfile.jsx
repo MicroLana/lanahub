@@ -111,4 +111,7 @@ export default function LanaProfile() {
     </div>
   );
 }
+<<<<<<< HEAD
  ⁠
+=======
+>>>>>>> 47b547097a4ea4dd1336c07e016fa1c70e94a1be
