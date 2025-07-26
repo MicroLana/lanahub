@@ -5,21 +5,35 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 import { useEffect } from "react";
-
+import CustomSelect from "../components/CitySelect";
+import { useAuth } from "../context/AuthContext";
 
 function RegisterForm() {
   const [formData, setFormData] = useState({
     phoneNumber: "",
     email: "",
     password: "",
+    confirmPassword: "",
     userType: "client",
     fullName: "",
     surname: "",
-    nationality: "",
+    suburb: "",
     city: "",
   });
 
-  const [profilePicture, setProfilePicture] = useState(null);
+  const cityOptions = [
+    { value: "Harare", label: "Harare" },
+    { value: "Mutare", label: "Mutare" },
+    { value: "Gweru", label: "Gweru" },
+  ];
+  const SuburbOptions = [
+    { value: "Avondale", label: "Avondale" },
+    { value: "Borrowdale", label: "Borrowdale" },
+    { value: "Chisipite", label: "Chisipite" },
+  ];
+  const [registerMsg, setRegisterMsg] = useState(null);
+  const [registerMsgClass, setRegisterMsgClass] = useState("text-red-500");
+  const { register, user } = useAuth();
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -34,37 +48,26 @@ function RegisterForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userId = uuidv4();
 
     try {
-      const hashedPassword = await bcrypt.hash(formData.password, 10);
-
-      let profilePictureURL = "";
-      if (profilePicture) {
-        const storageRef = ref(storage, `profilePictures/${userId}`);
-        await uploadBytes(storageRef, profilePicture);
-        profilePictureURL = await getDownloadURL(storageRef);
-      }
-
       const userDoc = {
-        id: userId,
-        phoneNumber: formData.phoneNumber,
         email: formData.email,
-        passwordHash: hashedPassword,
-        userType: formData.userType,
+        password: formData.password,
+        mobile: formData.phoneNumber,
+        role: formData.userType,
         fullName: formData.fullName,
-        surname: formData.surname,
-        profilePicture: profilePictureURL,
-        nationality: formData.nationality,
+        surName: formData.surname,
+        suburb: formData.suburb,
         city: formData.city,
-        createdAt: serverTimestamp(),
+        createdAt: new Date().toISOString(),
       };
 
-      await setDoc(doc(db, "users", userId), userDoc);
-      alert("✅ User registered successfully!");
+      await register(userDoc);
+      console.log("User registered successfully" + (await user));
+      setRegisterMsg("User Registered Successfully. Please Login.");
+      setRegisterMsgClass("text-green-500");
     } catch (err) {
-      console.error("Registration error:", err);
-      alert("❌ Failed to register user.");
+      setRegisterMsg("User registration failed. Please try again.");
     }
   };
 
@@ -83,25 +86,38 @@ function RegisterForm() {
     switch (name) {
       case "fullName":
       case "surname":
-      case "nationality":
       case "city":
+      case "suburb":
         if (!nameRegex.test(value)) {
           error = "Only letters and spaces, max 20 chars.";
         }
-        break;
-      case "phoneNumber":
-        if (!phoneRegex.test(value)) {
-          error = "Only numbers, max 15 digits.";
-        }
-        break;
-      case "email":
-        if (!emailRegex.test(value) || value.length > 30) {
-          error = "Invalid email format or too long (max 30 chars).";
-        }
-        break;
       case "password":
         if (!value) {
           error = "Password is required.";
+        } else if (value.length < 6) {
+          error = "Password must be at least 6 characters.";
+        } else if (
+          formData.confirmPassword &&
+          formData.confirmPassword !== value
+        ) {
+          // Update confirmPassword error too
+          setErrors((prev) => ({
+            ...prev,
+            confirmPassword: "Passwords do not match.",
+          }));
+        } else {
+          // Clear confirmPassword error if matches
+          setErrors((prev) => ({
+            ...prev,
+            confirmPassword: "",
+          }));
+        }
+        break;
+      case "confirmPassword":
+        if (!formData.password) {
+          error = "Please enter password first.";
+        } else if (value !== formData.password) {
+          error = "Passwords do not match.";
         }
         break;
       default:
@@ -114,7 +130,7 @@ function RegisterForm() {
   const handleValidatedChange = (e) => {
     handleChange(e);
     // Always validate the field, but skip validation for empty 'nationality'
-    if (e.target.name === "nationality" && e.target.value === "") {
+    if (e.target.name === "city" && e.target.value === "") {
       setErrors((prev) => ({ ...prev, nationality: "" }));
     } else {
       validateField(e.target.name, e.target.value);
@@ -128,8 +144,9 @@ function RegisterForm() {
       "surname",
       "email",
       "password",
+      "confirmPassword",
       "phoneNumber",
-      "city",
+      "suburb",
     ];
     const allFilled = requiredFields.every((field) => formData[field]);
     const noErrors = Object.values(errors).every((err) => !err);
@@ -142,7 +159,11 @@ function RegisterForm() {
     checkFormValidity();
     // eslint-disable-next-line
   }, [formData, errors]);
-
+  useEffect(() => {
+    if (!formData.password && formData.confirmPassword) {
+      setFormData((prev) => ({ ...prev, confirmPassword: "" }));
+    }
+  }, [formData.password]);
   return (
     <form
       onSubmit={handleSubmit}
@@ -175,20 +196,7 @@ function RegisterForm() {
             <span className="text-red-500 text-xs">{errors.surname}</span>
           )}
         </div>
-        <div>
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            onChange={handleValidatedChange}
-            required
-            maxLength={30}
-            className="input input-bordered w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.email && (
-            <span className="text-red-500 text-xs">{errors.email}</span>
-          )}
-        </div>
+
         <div>
           <input
             name="password"
@@ -201,6 +209,36 @@ function RegisterForm() {
           />
           {errors.password && (
             <span className="text-red-500 text-xs">{errors.password}</span>
+          )}
+        </div>
+        <div>
+          <input
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            onChange={handleValidatedChange}
+            maxLength={10}
+            required
+            className="input input-bordered w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          {errors.confirmPassword && (
+            <span className="text-red-500 text-xs">
+              {errors.confirmPassword}
+            </span>
+          )}
+        </div>
+        <div>
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            onChange={handleValidatedChange}
+            required
+            maxLength={50}
+            className="input input-bordered w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          {errors.email && (
+            <span className="text-red-500 text-xs">{errors.email}</span>
           )}
         </div>
         <div>
@@ -241,15 +279,28 @@ function RegisterForm() {
             <span className="text-red-500 text-xs">{errors.city}</span>
           )}
         </div>
-        <label className="block col-span-2">
-          <span className="text-gray-700 font-medium">Profile Picture</span>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+        <div>
+          <CustomSelect
+            name="city"
+            id="city-select"
+            options={cityOptions}
+            placeholder="Select City"
+            className="mb-4"
+            handleValidatedChange={handleValidatedChange}
+            errors={errors}
           />
-        </label>
+        </div>
+        <div>
+          <CustomSelect
+            name="suburb"
+            id="suburb-select"
+            options={SuburbOptions}
+            placeholder="Select Suburb"
+            className="mb-4"
+            handleValidatedChange={handleValidatedChange}
+            errors={errors}
+          />
+        </div>
       </div>
       <button
         type="submit"
