@@ -7,13 +7,13 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
+
 import {
   onAuthStateChanged,
   isSignInWithEmailLink,
   signInWithEmailLink,
 } from "firebase/auth";
 import { auth } from "./firebase";
-
 import Layout from "./components/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
@@ -27,12 +27,10 @@ import UserRegistrationPage from "./pages/UserRegistrationPage.jsx";
 import ServiceProviderPage from "./pages/ServiceProviderPage.jsx";
 import LanahubLogin from "./pages/LanahubLogin.jsx";
 
-
 function AppContent() {
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-
   // Listen for auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -70,7 +68,7 @@ function AppContent() {
         });
     }
   }, [navigate]);
-
+  // Using Firebase Auth in React
   return (
     <>
       {showModal && user?.emailVerified && (
@@ -117,6 +115,7 @@ function AppContent() {
 
         {/* Login route */}
         <Route path="/login" element={<LanahubLogin />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </>
   );
