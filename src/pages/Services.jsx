@@ -365,7 +365,7 @@ export default function Services() {
               className="flex items-center bg-white text-green-600 font-semibold px-5 py-2 rounded-full shadow hover:bg-gray-100 transition-colors duration-200"
             >
               <FaBook className="mr-2" />
-              Book Now
+              Find Professional Now.
             </Link>
           </div>
         </div>
@@ -409,16 +409,14 @@ export default function Services() {
             className="flex items-center bg-green-600 text-white font-semibold px-5 py-2 rounded-full shadow hover:bg-green-700 transition-colors duration-200"
           >
             <FaBook className="mr-2" />
-            Book Now
+            Search for Professional
           </Link>
         </div>
       </main>
 
       {/* Bottom Text */}
       <div className="text-center text-gray-700 px-4 py-6">
-        Access professional, background‑checked electricians, plumbers,
-        housekeepers, mechanics and more—hassle‑free home services at your
-        fingertips.
+        Access vetted, background checked professionals from Electricians and Plumbers to Housekeepers, Motor Mechanics, and more—for reliable, hassle‑free home services at your fingertips.
       </div>
 
       {/* Footer */}

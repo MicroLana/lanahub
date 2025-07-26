@@ -107,19 +107,19 @@ export default function Navbar({ onRegister }) {
   const servicesItems = [
     { label: "Find Professional", to: "/find-professional" },
     { divider: true },
-    { label: "Electrical Repairs", to: "/services" },
-    { label: "Home Renovations", to: "/services" },
-    { label: "Vehicle Repairs", to: "/services" },
-    { label: "Solar Installations", to: "/services" },
-    { divider: true },
-    { label: "Animal Care", to: "/services" },
-    { label: "House Keeping", to: "/services" },
-    { divider: true },
-    { label: "Paint and Decorations", to: "/services" },
-    { label: "Plumbing", to: "/services" },
-    { label: "Children Parties", to: "/services" },
-    { divider: true },
-    { label: "View More", to: "/services" }
+    //{ label: "Electrical Repairs", to: "/services" },
+    //{ label: "Home Renovations", to: "/services" },
+    //{ label: "Vehicle Repairs", to: "/services" },
+   // { label: "Solar Installations", to: "/services" },
+    //{ divider: true },
+    //{ label: "Animal Care", to: "/services" },
+    //{ label: "House Keeping", to: "/services" },
+    //{ divider: true },
+    //{ label: "Paint and Decorations", to: "/services" },
+    //{ label: "Plumbing", to: "/services" },
+    //{ label: "Children Parties", to: "/services" },
+    //{ divider: true },
+    { label: "View Services", to: "/services" }
   ];
 
   const partnersItems = [

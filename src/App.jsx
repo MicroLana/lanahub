@@ -115,7 +115,9 @@ function AppContent() {
           path="/service-provider-registration"
           element={<NewSPRegistration />}
         />
-        <Route path="/find-professional" element={<FindProfessional />} />
+
+        <Route path="/FindProfessional" element={<FindProfessional />} />
+
 
         {/* Login route */}
         <Route path="/login" element={<LanahubLogin />} />
