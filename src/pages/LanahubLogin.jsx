@@ -1,19 +1,32 @@
 // src/pages/LanahubLogin.jsx
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import ResetPassword from './resetpassword.jsx'
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ResetPassword from "./resetpassword.jsx";
+import { useAuth } from "../context/AuthContext";
 export default function LanahubLogin() {
-  const [emailOrPhone, setEmailOrPhone] = useState('')
-  const [password, setPassword] = useState('')
-  const [resetModalOpen, setResetModalOpen] = useState(false)
-  const navigate = useNavigate()
-
-  const handleSubmit = e => {
-    e.preventDefault()
+  const [emailOrPhone, setEmailOrPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [resetModalOpen, setResetModalOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+  const [error, setError] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(emailOrPhone, password);
+      console.log("Logged in!");
+      navigate("/home");
+    } catch (err) {
+      setError("Login failed. Please check again later.");
+      console.error("Login failed", err);
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
     // ← TODO: your auth logic here
-    navigate('/')
-  }
+    handleLogin(e);
+  };
 
   return (
     <div
@@ -36,7 +49,7 @@ export default function LanahubLogin() {
           <input
             type="text"
             value={emailOrPhone}
-            onChange={e => setEmailOrPhone(e.target.value)}
+            onChange={(e) => setEmailOrPhone(e.target.value)}
             placeholder="Email Address / Phone Number"
             className="w-full p-2 border border-gray-300 rounded-md"
             required
@@ -51,7 +64,7 @@ export default function LanahubLogin() {
           <input
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password / PinCode"
             className="w-full p-2 border border-gray-300 rounded-md"
             required
@@ -79,7 +92,7 @@ export default function LanahubLogin() {
           </button>
           <button
             type="button"
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className="flex-1 py-3 border border-green-600 text-green-600 rounded-full font-semibold"
           >
             Cancel
@@ -96,5 +109,5 @@ export default function LanahubLogin() {
         )}
       </form>
     </div>
-  )
+  );
 }

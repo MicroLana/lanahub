@@ -5,7 +5,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 import { useEffect } from "react";
-
+import { useAuth } from "../context/AuthContext";
 
 function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -14,13 +14,13 @@ function RegisterForm() {
     password: "",
     userType: "client",
     fullName: "",
-    surname: "",
-    nationality: "",
+    surName: "",
+    suburb: "",
     city: "",
   });
-
-  const [profilePicture, setProfilePicture] = useState(null);
-
+  const [registerMsg, setRegisterMsg] = useState(null);
+  const [registerMsgClass, setRegisterMsgClass] = useState("text-red-500");
+  const { register, user } = useAuth();
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -28,43 +28,29 @@ function RegisterForm() {
     }));
   };
 
-  const handleFileChange = (e) => {
-    setProfilePicture(e.target.files[0]);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userId = uuidv4();
 
     try {
-      const hashedPassword = await bcrypt.hash(formData.password, 10);
-
-      let profilePictureURL = "";
-      if (profilePicture) {
-        const storageRef = ref(storage, `profilePictures/${userId}`);
-        await uploadBytes(storageRef, profilePicture);
-        profilePictureURL = await getDownloadURL(storageRef);
-      }
-
       const userDoc = {
-        id: userId,
-        phoneNumber: formData.phoneNumber,
+        mobile: formData.phoneNumber,
         email: formData.email,
-        passwordHash: hashedPassword,
+        password: formData.password,
         userType: formData.userType,
         fullName: formData.fullName,
-        surname: formData.surname,
+        surName: formData.surName,
         profilePicture: profilePictureURL,
-        nationality: formData.nationality,
+        suburb: formData.suburb,
         city: formData.city,
         createdAt: serverTimestamp(),
       };
 
-      await setDoc(doc(db, "users", userId), userDoc);
-      alert("✅ User registered successfully!");
+      await register(userDoc);
+      console.log("User registered successfully" + (await user));
+      setRegisterMsg("User Registered Successfully. Please Login.");
+      setRegisterMsgClass("text-green-500");
     } catch (err) {
-      console.error("Registration error:", err);
-      alert("❌ Failed to register user.");
+      setRegisterMsg("User registration failed. Please try again.");
     }
   };
 
@@ -82,8 +68,8 @@ function RegisterForm() {
     let error = "";
     switch (name) {
       case "fullName":
-      case "surname":
-      case "nationality":
+      case "surName":
+      case "suburb":
       case "city":
         if (!nameRegex.test(value)) {
           error = "Only letters and spaces, max 20 chars.";
@@ -113,9 +99,9 @@ function RegisterForm() {
   // Update validation on input change
   const handleValidatedChange = (e) => {
     handleChange(e);
-    // Always validate the field, but skip validation for empty 'nationality'
-    if (e.target.name === "nationality" && e.target.value === "") {
-      setErrors((prev) => ({ ...prev, nationality: "" }));
+    // Always validate the field, but skip validation for empty 'suburb'
+    if (e.target.name === "suburb" && e.target.value === "") {
+      setErrors((prev) => ({ ...prev, suburb: "" }));
     } else {
       validateField(e.target.name, e.target.value);
     }
@@ -125,7 +111,7 @@ function RegisterForm() {
   const checkFormValidity = () => {
     const requiredFields = [
       "fullName",
-      "surname",
+      "surName",
       "email",
       "password",
       "phoneNumber",
@@ -164,15 +150,15 @@ function RegisterForm() {
         </div>
         <div>
           <input
-            name="surname"
-            placeholder="Surname"
+            name="surName"
+            placeholder="surName"
             onChange={handleValidatedChange}
             required
             maxLength={20}
             className="input input-bordered w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.surname && (
-            <span className="text-red-500 text-xs">{errors.surname}</span>
+          {errors.surName && (
+            <span className="text-red-500 text-xs">{errors.surName}</span>
           )}
         </div>
         <div>
@@ -218,14 +204,14 @@ function RegisterForm() {
         </div>
         <div>
           <input
-            name="nationality"
-            placeholder="Nationality"
+            name="suburb"
+            placeholder="Suburb"
             onChange={handleValidatedChange}
             maxLength={20}
             className="input input-bordered w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.nationality && (
-            <span className="text-red-500 text-xs">{errors.nationality}</span>
+          {errors.suburb && (
+            <span className="text-red-500 text-xs">{errors.suburb}</span>
           )}
         </div>
         <div>
@@ -241,15 +227,6 @@ function RegisterForm() {
             <span className="text-red-500 text-xs">{errors.city}</span>
           )}
         </div>
-        <label className="block col-span-2">
-          <span className="text-gray-700 font-medium">Profile Picture</span>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-          />
-        </label>
       </div>
       <button
         type="submit"
