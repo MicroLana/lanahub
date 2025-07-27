@@ -1,3 +1,4 @@
+//Developed by Mr N~G~K
 // src/App.jsx
 import React, { useState, useEffect } from "react";
 import {
@@ -26,6 +27,8 @@ import LanahubLogin from "./pages/LanahubLogin.jsx";
 import NewSPRegistration from "./pages/NewSPRegistration.jsx";
 import NewUserRegistration from "./pages/NewUserRegistration.jsx";
 import FindProfessional from "./pages/FindProfessional.jsx";
+// import ServiceDetailsPage from "./pages/ServiceDetailsPage.jsx"; // <--- commented out, as file does not exist
+import UserDashboard from "./pages/UserDashboard.jsx";
 
 function AppContent() {
   const [user, setUser] = useState(null);
@@ -115,12 +118,13 @@ function AppContent() {
           path="/service-provider-registration"
           element={<NewSPRegistration />}
         />
-
         <Route path="/FindProfessional" element={<FindProfessional />} />
 
         {/* Login route */}
         <Route path="/login" element={<LanahubLogin />} />
         <Route path="/home" element={<Home />} />
+
+        <Route path="/dashboard" element={<UserDashboard />} />
       </Routes>
     </>
   );

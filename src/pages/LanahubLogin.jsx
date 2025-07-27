@@ -1,8 +1,10 @@
+//Developed by Mr N~G~K
 // src/pages/LanahubLogin.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ResetPassword from "./resetpassword.jsx";
 import { useAuth } from "../context/AuthContext";
+
 export default function LanahubLogin() {
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +13,7 @@ export default function LanahubLogin() {
   const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -22,9 +25,9 @@ export default function LanahubLogin() {
       console.error("Login failed", err);
     }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // ← TODO: your auth logic here
     handleLogin(e);
   };
 
@@ -99,7 +102,10 @@ export default function LanahubLogin() {
           </button>
         </div>
 
-        <p className="text-center text-sm text-green-600">
+        <p
+          onClick={() => navigate("/dashboard")}
+          className="text-center text-sm text-green-600 cursor-pointer hover:underline"
+        >
           Lanahub Copyright 2025
         </p>
 
