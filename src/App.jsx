@@ -118,9 +118,9 @@ function AppContent() {
 
         <Route path="/FindProfessional" element={<FindProfessional />} />
 
-
         {/* Login route */}
         <Route path="/login" element={<LanahubLogin />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </>
   );
