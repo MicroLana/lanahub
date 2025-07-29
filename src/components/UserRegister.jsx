@@ -42,7 +42,7 @@ function RegisterForm() {
         profilePicture: profilePictureURL,
         suburb: formData.suburb,
         city: formData.city,
-        createdAt: serverTimestamp(),
+        createdAt: new Date().toISOString(),
       };
 
       await register(userDoc);
