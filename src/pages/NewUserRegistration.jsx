@@ -1,31 +1,36 @@
 // src/pages/NewUserRegistration.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 export default function NewUserRegistration() {
   const navigate = useNavigate();
+  const [registerMsg, setRegisterMsg] = useState(null);
+  const [registerMsgClass, setRegisterMsgClass] = useState("text-red-500");
+  const { register, user } = useAuth();
   const [form, setForm] = useState({
-    fullName: '',
-    surname: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phone: '',
-    country: '',
-    suburb: ''
+    fullName: "",
+    surname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    country: "",
+    suburb: "",
   });
 
-  const countries = ['Zimbabwe', 'South Africa', 'Zambia', 'UK'];
-  const suburbs = ['Suburb A', 'Suburb B', 'Suburb C']; // replace with actual suburbs
+  const countries = ["Zimbabwe", "South Africa", "Zambia", "UK"];
+  const suburbs = ["Suburb A", "Suburb B", "Suburb C"]; // replace with actual suburbs
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const isEmailValid = /^\S+@\S+\.\S+$/.test(form.email);
   const isPhoneValid = /^\+?\d{7,15}$/.test(form.phone);
-  const passwordsMatch = form.password && form.password === form.confirmPassword;
+  const passwordsMatch =
+    form.password && form.password === form.confirmPassword;
 
   const isFormValid =
     form.fullName &&
@@ -37,10 +42,30 @@ export default function NewUserRegistration() {
     form.country &&
     form.suburb;
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid) return;
     // TODO: call API or Firebase to create user
+    try {
+      const userDoc = {
+        mobile: form.phone,
+        email: form.email,
+        password: form.password,
+        role: "user",
+        fullName: form.fullName,
+        surName: form.surname,
+        suburb: form.suburb,
+        city: form.country,
+        createdAt: new Date().toISOString(),
+      };
+
+      await register(userDoc);
+      console.log("User registered successfully" + (await user));
+      setRegisterMsg("User Registered Successfully. Please Login.");
+      setRegisterMsgClass("text-green-500");
+    } catch (err) {
+      setRegisterMsg("User registration failed. Please try again.");
+    }
   };
 
   return (
@@ -94,12 +119,20 @@ export default function NewUserRegistration() {
             className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
             required
           >
-            <option value="" disabled>Select Suburb</option>
-            {suburbs.map(s => <option key={s} value={s}>{s}</option>)}
+            <option value="" disabled>
+              Select Suburb
+            </option>
+            {suburbs.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
           </select>
         </div>
         {!isEmailValid && form.email && (
-          <p className="text-red-500 text-sm mt-1">Please enter a valid email</p>
+          <p className="text-red-500 text-sm mt-1">
+            Please enter a valid email
+          </p>
         )}
 
         {/* Password & Confirm in same row */}
@@ -144,12 +177,20 @@ export default function NewUserRegistration() {
             className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
             required
           >
-            <option value="" disabled>Select Country</option>
-            {countries.map(c => <option key={c} value={c}>{c}</option>)}
+            <option value="" disabled>
+              Select Country
+            </option>
+            {countries.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
           </select>
         </div>
         {!isPhoneValid && form.phone && (
-          <p className="text-red-500 text-sm mt-1">Enter a valid phone number</p>
+          <p className="text-red-500 text-sm mt-1">
+            Enter a valid phone number
+          </p>
         )}
 
         {/* Actions */}
@@ -163,7 +204,7 @@ export default function NewUserRegistration() {
           </button>
           <button
             type="button"
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className="px-6 py-2 border border-green-600 text-green-600 rounded-md hover:bg-green-100"
           >
             Cancel

@@ -19,7 +19,7 @@ export default function LanahubLogin() {
     try {
       await login(emailOrPhone, password);
       console.log("Logged in!");
-      navigate("/home");
+      navigate("/dashboard");
     } catch (err) {
       setError("Login failed. Please check again later.");
       console.error("Login failed", err);

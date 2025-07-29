@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // or store just token, role, etc.
   const [loggedInUser, setLoggedInUser] = useState(null);
   const login = async (emailOrPhone, password) => {
+    console.log("Logging in with:", emailOrPhone, password);
     const auth = getAuth();
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -15,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     );
 
     const idToken = await userCredential.user.getIdToken();
+    console.log("User logged in with token:", idToken);
     // call Firebase or backend API to login
     const response = await fetch(
       `${config.apiBaseUrl}/lana-hub-api/${config.version}/verify-token`,
