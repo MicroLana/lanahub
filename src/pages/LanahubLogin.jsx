@@ -1,4 +1,3 @@
-//Developed by Mr N~G~K
 // src/pages/LanahubLogin.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -106,7 +105,14 @@ export default function LanahubLogin() {
           onClick={() => navigate("/dashboard")}
           className="text-center text-sm text-green-600 cursor-pointer hover:underline"
         >
-          Lanahub Copyright 2025
+          User Dashboard Temp Access
+        </p>
+
+        <p
+          onClick={() => navigate("/provider-dashboard")}
+          className="text-center text-sm text-green-600 cursor-pointer hover:underline"
+        >
+          Provider Dashboard Temp Access
         </p>
 
         {/* Reset Password Modal */}

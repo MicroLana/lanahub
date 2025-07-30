@@ -1,6 +1,7 @@
 //Developed by Mr N~G~K
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 /**
  * Reusable dropdown for nav items with hover, click, and keyboard support
@@ -94,14 +95,8 @@ function NavDropdown({ label, items, align = "left" }) {
   );
 }
 
-export default function Navbar({ onRegister }) {
+export default function Navbar2() {
   const { pathname } = useLocation();
-  const hiddenPaths = [
-    "/user-registration",
-    "/service-provider-registration"
-  ];
-  const shouldShowRegister = !hiddenPaths.includes(pathname);
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const servicesItems = [
@@ -116,9 +111,9 @@ export default function Navbar({ onRegister }) {
 
   const supportItems = [
     { label: "About Us", to: "/about-lanahub" },
-    { label: "Blog", to: "/blog" },         // ✅ Blog and FAQ both route to /blog
+    { label: "Blog", to: "/blog" },
     { label: "Contact", to: "/contact" },
-    { label: "FAQ", to: "/blog" },          // ✅ Updated FAQ to also go to /blog
+    { label: "FAQ", to: "/faq" },
     { divider: true },
     { label: "Verification Process", to: "/verification-process" },
     { label: "Privacy Statement", to: "/policies" }
@@ -138,23 +133,7 @@ export default function Navbar({ onRegister }) {
           <NavDropdown label="Support" items={supportItems} />
         </div>
 
-        {/* Desktop auth */}
-        <div className="hidden md:flex gap-4">
-          <Link
-            to="/login"
-            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-          >
-            Login
-          </Link>
-          {shouldShowRegister && (
-            <button
-              onClick={onRegister}
-              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-            >
-              Register
-            </button>
-          )}
-        </div>
+        {/* No Login/Register Buttons Here */}
 
         {/* Mobile Hamburger */}
         <button
@@ -177,24 +156,7 @@ export default function Navbar({ onRegister }) {
             <NavDropdown label="Services" items={servicesItems} align="center" />
             <NavDropdown label="Partners" items={partnersItems} align="center" />
             <NavDropdown label="Support" items={supportItems} align="center" />
-            <Link
-              to="/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2 text-black hover:bg-green-100 rounded"
-            >
-              Login
-            </Link>
-            {shouldShowRegister && (
-              <button
-                onClick={() => {
-                  onRegister();
-                  setMobileMenuOpen(false);
-                }}
-                className="text-left block px-4 py-2 text-black hover:bg-green-100 rounded"
-              >
-                Register
-              </button>
-            )}
+            {/* No login/register in mobile menu either */}
           </div>
         </div>
       )}

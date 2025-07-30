@@ -5,6 +5,8 @@ import React from "react";
 const partners = [
   "/images/partners/biriyard.png",
   "/images/partners/chrisandgeo.png",
+  "/images/partners/tcz.png",
+    "/images/partners/ecoguru.png",
   "/images/partners/mytepee.png",
   "/images/partners/futuretech.png",
   "/images/partners/buildient.png",
@@ -14,7 +16,7 @@ const partners = [
   "/images/partners/miketechmotors.png",
   "/images/partners/solacity.png",
    "/images/partners/ngk.png",
-    "/images/partners/tcz.png"
+    
 
 ];
 

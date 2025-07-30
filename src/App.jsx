@@ -16,6 +16,8 @@ import {
 import { auth } from "./firebase";
 
 import Layout from "./components/Layout.jsx";
+import Navbar2 from "./components/Navbar2.jsx";
+
 import Home from "./pages/Home.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
 import Services from "./pages/Services.jsx";
@@ -27,15 +29,17 @@ import LanahubLogin from "./pages/LanahubLogin.jsx";
 import NewSPRegistration from "./pages/NewSPRegistration.jsx";
 import NewUserRegistration from "./pages/NewUserRegistration.jsx";
 import FindProfessional from "./pages/FindProfessional.jsx";
-// import ServiceDetailsPage from "./pages/ServiceDetailsPage.jsx"; // <--- commented out, as file does not exist
 import UserDashboard from "./pages/UserDashboard.jsx";
+import BlogAndFAQ from "./pages/BlogAndFAQ.jsx";
+
+// ✅ Import ProviderDashboard
+import ProviderDashboard from "./pages/ProviderDashboard.jsx";
 
 function AppContent() {
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  // Listen for auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -43,7 +47,6 @@ function AppContent() {
     return unsubscribe;
   }, []);
 
-  // Handle magic‑link sign‑in & 30‑minute expiry
   useEffect(() => {
     if (isSignInWithEmailLink(auth, window.location.href)) {
       let email = window.localStorage.getItem("emailForSignIn");
@@ -112,19 +115,46 @@ function AppContent() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
 
-        {/* Standalone pages */}
-        <Route path="/user-registration" element={<NewUserRegistration />} />
+        {/* Standalone pages with Navbar2 */}
+        <Route
+          path="/user-registration"
+          element={
+            <>
+              <Navbar2 />
+              <NewUserRegistration />
+            </>
+          }
+        />
         <Route
           path="/service-provider-registration"
-          element={<NewSPRegistration />}
+          element={
+            <>
+              <Navbar2 />
+              <NewSPRegistration />
+            </>
+          }
         />
-        <Route path="/FindProfessional" element={<FindProfessional />} />
 
-        {/* Login route */}
+        {/* Blog and FAQ page */}
+        <Route
+          path="/blog"
+          element={
+            <>
+              <Navbar2 />
+              <BlogAndFAQ />
+            </>
+          }
+        />
+
+        {/* Other standalone pages */}
+        <Route path="/FindProfessional" element={<FindProfessional />} />
         <Route path="/login" element={<LanahubLogin />} />
         <Route path="/home" element={<Home />} />
-
         <Route path="/dashboard" element={<UserDashboard />} />
+
+        {/* ✅ Provider Dashboard page */}
+        <Route path="/provider-dashboard" element={<ProviderDashboard />} />
+
       </Routes>
     </>
   );
