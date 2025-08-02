@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import config from "../config";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -53,9 +53,10 @@ export const AuthProvider = ({ children }) => {
     console.log("User registered successfully", data);
     setUser(data);
   };
-  const logout = () => {
-    setUser(null);
-    // Optional: remove token from storage, redirect, etc.
+  const logout = async () => {
+    const auth = getAuth();
+    await signOut(auth);
+    setLoggedInUser(null);
   };
 
   return (

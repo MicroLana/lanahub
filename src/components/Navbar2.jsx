@@ -2,7 +2,9 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
 /**
  * Reusable dropdown for nav items with hover, click, and keyboard support
  */
@@ -23,7 +25,7 @@ function NavDropdown({ label, items, align = "left" }) {
 
   const toggleMenu = useCallback(() => {
     clearTimeout(timerRef.current);
-    setOpen(prev => !prev);
+    setOpen((prev) => !prev);
   }, []);
 
   const closeImmediately = useCallback(() => {
@@ -32,7 +34,7 @@ function NavDropdown({ label, items, align = "left" }) {
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = e => {
+    const handleClickOutside = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
         setOpen(false);
       }
@@ -56,7 +58,7 @@ function NavDropdown({ label, items, align = "left" }) {
         aria-haspopup="true"
         aria-expanded={open}
         onClick={toggleMenu}
-        onKeyDown={e => {
+        onKeyDown={(e) => {
           if (e.key === "Escape") closeImmediately();
           if (e.key === "ArrowDown") openMenu();
         }}
@@ -76,7 +78,10 @@ function NavDropdown({ label, items, align = "left" }) {
         >
           {items.map((item, idx) =>
             item.divider ? (
-              <div key={`divider-${idx}`} className="border-t border-gray-200 my-2" />
+              <div
+                key={`divider-${idx}`}
+                className="border-t border-gray-200 my-2"
+              />
             ) : (
               <Link
                 key={item.label}
@@ -98,16 +103,16 @@ function NavDropdown({ label, items, align = "left" }) {
 export default function Navbar2() {
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const { loggedInUser, logout } = useAuth();
+  const navigate = useNavigate();
+  console.log("Logged in user:", loggedInUser);
   const servicesItems = [
     { label: "View Services", to: "/services" },
     { divider: true },
     { label: "Find Professional", to: "/find-professional" },
   ];
 
-  const partnersItems = [
-    { label: "Partner", to: "/partners" }
-  ];
+  const partnersItems = [{ label: "Partner", to: "/partners" }];
 
   const supportItems = [
     { label: "About Us", to: "/about-lanahub" },
@@ -116,9 +121,17 @@ export default function Navbar2() {
     { label: "FAQ", to: "/faq" },
     { divider: true },
     { label: "Verification Process", to: "/verification-process" },
-    { label: "Privacy Statement", to: "/policies" }
+    { label: "Privacy Statement", to: "/policies" },
   ];
-
+  const handleLogout = async () => {
+    try {
+      await logout();
+      console.log("Logged out successfully");
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
   return (
     <nav className="relative bg-white shadow-md">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center p-4">
@@ -134,11 +147,20 @@ export default function Navbar2() {
         </div>
 
         {/* No Login/Register Buttons Here */}
-
+        {loggedInUser && (
+          <button
+            onClick={handleLogout}
+            className="text-left block px-4 py-2 text-black hover:bg-green-100 rounded flex items-center space-x-2"
+          >
+            <LogOut className="w-5 h-5" />
+            {/* Optional: add "Logout" text beside icon */}
+            {/* <span>Logout</span> */}
+          </button>
+        )}
         {/* Mobile Hamburger */}
         <button
           className="md:hidden p-2 focus:outline-none"
-          onClick={() => setMobileMenuOpen(v => !v)}
+          onClick={() => setMobileMenuOpen((v) => !v)}
           aria-label="Toggle menu"
         >
           {mobileMenuOpen ? (
@@ -153,8 +175,16 @@ export default function Navbar2() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 shadow-md">
           <div className="flex flex-col p-4 gap-4">
-            <NavDropdown label="Services" items={servicesItems} align="center" />
-            <NavDropdown label="Partners" items={partnersItems} align="center" />
+            <NavDropdown
+              label="Services"
+              items={servicesItems}
+              align="center"
+            />
+            <NavDropdown
+              label="Partners"
+              items={partnersItems}
+              align="center"
+            />
             <NavDropdown label="Support" items={supportItems} align="center" />
             {/* No login/register in mobile menu either */}
           </div>
