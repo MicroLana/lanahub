@@ -10,14 +10,14 @@ export default function LanahubLogin() {
   const [resetModalOpen, setResetModalOpen] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState("");
-  const { login } = useAuth();
+  const { login, loggedInUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await login(emailOrPhone, password);
-      console.log("Logged in!");
+      console.log("Logged in!" + loggedInUser);
       navigate("/dashboard");
     } catch (err) {
       setError("Login failed. Please check again later.");
