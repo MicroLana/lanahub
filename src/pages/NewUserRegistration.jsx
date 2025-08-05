@@ -74,12 +74,21 @@ export default function NewUserRegistration() {
         }
       } else {
         const errText = result && result.message ? result.message : "Registration failed. Please try again.";
+        // show error alert
+        window.alert(errText);
+        setRegisterMsg(errText);
+        setRegisterMsgClass("text-red-500");
+      }
+        const errText = result && result.message ? result.message : "Registration failed. Please try again.";
         setRegisterMsg(errText);
         setRegisterMsgClass("text-red-500");
       }
     } catch (err) {
       console.error("Registration error:", err);
-      setRegisterMsg("Network error. Please try again.");
+      const networkError = "Network error. Please try again.";
+      // show network error alert
+      window.alert(networkError);
+      setRegisterMsg(networkError);
       setRegisterMsgClass("text-red-500");
     }
   };
