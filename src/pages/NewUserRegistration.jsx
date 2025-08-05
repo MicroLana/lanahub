@@ -8,6 +8,7 @@ export default function NewUserRegistration() {
   const [registerMsg, setRegisterMsg] = useState(null);
   const [registerMsgClass, setRegisterMsgClass] = useState("text-red-500");
   const { register } = useAuth();
+
   const [form, setForm] = useState({
     fullName: "",
     surname: "",
@@ -59,34 +60,28 @@ export default function NewUserRegistration() {
       };
 
       const result = await register(userDoc);
+      console.log("Registration response:", result);
 
       if (result && result.code === "201") {
-        // clear any inline messages
+        // Clear inline message and form
         setRegisterMsg(null);
-        // clear form fields
         setForm({ fullName: "", surname: "", email: "", password: "", confirmPassword: "", phone: "", country: "", suburb: "" });
 
-        // show success alert
+        // Success popup and login prompt
         window.alert("Account has been created successfully.");
-        // prompt for login
         if (window.confirm("Would you like to log in now?")) {
           navigate("/login");
         }
       } else {
-        const errText = result && result.message ? result.message : "Registration failed. Please try again.";
-        // show error alert
+        // Show error popup
+        const errText = (result && result.message) || "Registration failed. Please try again.";
         window.alert(errText);
-        setRegisterMsg(errText);
-        setRegisterMsgClass("text-red-500");
-      }
-        const errText = result && result.message ? result.message : "Registration failed. Please try again.";
         setRegisterMsg(errText);
         setRegisterMsgClass("text-red-500");
       }
     } catch (err) {
       console.error("Registration error:", err);
       const networkError = "Network error. Please try again.";
-      // show network error alert
       window.alert(networkError);
       setRegisterMsg(networkError);
       setRegisterMsgClass("text-red-500");
