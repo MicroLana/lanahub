@@ -9,7 +9,7 @@ const partners = [
     "/images/partners/ecoguru.png",
   "/images/partners/mytepee.png",
   "/images/partners/futuretech.png",
-   "/images/partners/jica.png",
+   "/images/partners/jicahomes.png",
   "/images/partners/buildient.png",
   "/images/partners/electrosales.png",
   "/images/partners/halstards.png",
