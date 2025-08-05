@@ -1,8 +1,8 @@
 // src/pages/NewUserRegistration.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+
 export default function NewUserRegistration() {
   const navigate = useNavigate();
   const [registerMsg, setRegisterMsg] = useState(null);
@@ -29,8 +29,7 @@ export default function NewUserRegistration() {
 
   const isEmailValid = /^\S+@\S+\.\S+$/.test(form.email);
   const isPhoneValid = /^\+?\d{7,15}$/.test(form.phone);
-  const passwordsMatch =
-    form.password && form.password === form.confirmPassword;
+  const passwordsMatch = form.password && form.password === form.confirmPassword;
 
   const isFormValid =
     form.fullName &&
@@ -45,7 +44,6 @@ export default function NewUserRegistration() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid) return;
-    // TODO: call API or Firebase to create user
     try {
       const userDoc = {
         mobile: form.phone,
@@ -63,6 +61,14 @@ export default function NewUserRegistration() {
       console.log("User registered successfully" + (await user));
       setRegisterMsg("User Registered Successfully. Please Login.");
       setRegisterMsgClass("text-green-500");
+
+      // Clear form fields
+      setForm({ fullName: "", surname: "", email: "", password: "", confirmPassword: "", phone: "", country: "", suburb: "" });
+
+      // Prompt to navigate to login
+      if (window.confirm("Registration successful. Would you like to log in now?")) {
+        navigate("/login");
+      }
     } catch (err) {
       setRegisterMsg("User registration failed. Please try again.");
     }
@@ -130,9 +136,7 @@ export default function NewUserRegistration() {
           </select>
         </div>
         {!isEmailValid && form.email && (
-          <p className="text-red-500 text-sm mt-1">
-            Please enter a valid email
-          </p>
+          <p className="text-red-500 text-sm mt-1">Please enter a valid email</p>
         )}
 
         {/* Password & Confirm in same row */}
@@ -188,9 +192,7 @@ export default function NewUserRegistration() {
           </select>
         </div>
         {!isPhoneValid && form.phone && (
-          <p className="text-red-500 text-sm mt-1">
-            Enter a valid phone number
-          </p>
+          <p className="text-red-500 text-sm mt-1">Enter a valid phone number</p>
         )}
 
         {/* Actions */}
@@ -210,6 +212,12 @@ export default function NewUserRegistration() {
             Cancel
           </button>
         </div>
+
+        {registerMsg && (
+          <p className={`${registerMsgClass} text-center mt-4`}>
+            {registerMsg}
+          </p>
+        )}
 
         <p className="text-center text-gray-500 mt-6">Lanahub Copyright 2025</p>
       </form>
