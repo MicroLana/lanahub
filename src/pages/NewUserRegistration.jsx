@@ -44,6 +44,7 @@ export default function NewUserRegistration() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid) return;
+
     try {
       const userDoc = {
         mobile: form.phone,
@@ -57,28 +58,28 @@ export default function NewUserRegistration() {
         createdAt: new Date().toISOString(),
       };
 
-      await register(userDoc);
-      console.log("User registered successfully", await user);
-      setRegisterMsg("User Registered Successfully. Please Login.");
-      setRegisterMsgClass("text-green-500");
+      const result = await register(userDoc);
+      console.log("Registration response:", result);
 
-      // Clear form fields
-      setForm({ fullName: "", surname: "", email: "", password: "", confirmPassword: "", phone: "", country: "", suburb: "" });
-
-      // Prompt to navigate to login
-      if (window.confirm("Registration successful. Would you like to log in now?")) {
-        navigate("/login");
+      if (result && result.code === "201") {
+        // Pop-up success message
+        window.alert("User Registered Successfully.");
+        // Clear inline message
+        setRegisterMsg(null);
+        // Clear form fields
+        setForm({ fullName: "", surname: "", email: "", password: "", confirmPassword: "", phone: "", country: "", suburb: "" });
+        // Prompt for login
+        if (window.confirm("Would you like to log in now?")) {
+          navigate("/login");
+        }
+      } else {
+        const errText = result && result.message ? result.message : "Registration failed. Please try again.";
+        setRegisterMsg(errText);
+        setRegisterMsgClass("text-red-500");
       }
     } catch (err) {
       console.error("Registration error:", err);
-      // Attempt to extract server error message
-      let errorMsg = "User registration failed. Please try again.";
-      if (err.response && err.response.data && err.response.data.message) {
-        errorMsg = err.response.data.message;
-      } else if (err.message) {
-        errorMsg = err.message;
-      }
-      setRegisterMsg(errorMsg);
+      setRegisterMsg("Network error. Please try again.");
       setRegisterMsgClass("text-red-500");
     }
   };
