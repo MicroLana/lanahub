@@ -62,7 +62,12 @@ export default function NewUserRegistration() {
       setRegisterMsg("User registered successfully. Please login below.");
       setRegisterMsgClass("text-green-500");
     } catch (err) {
-      setRegisterMsg("User registration failed. Please try again.");
+      console.error("Registration error:", err);
+      const errorMsg =
+        (err.response && err.response.data) ||
+        err.message ||
+        "User registration failed. Please try again.";
+      setRegisterMsg(errorMsg);
       setRegisterMsgClass("text-red-500");
     }
   };
@@ -205,7 +210,6 @@ export default function NewUserRegistration() {
           </button>
         </div>
 
-        {/* message box */}
         {registerMsg && (
           <div
             className={`mt-6 p-4 rounded ${
@@ -235,3 +239,4 @@ export default function NewUserRegistration() {
     </div>
   );
 }
+
