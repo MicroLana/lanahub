@@ -1,5 +1,5 @@
 // src/pages/NewUserRegistration.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -7,7 +7,7 @@ export default function NewUserRegistration() {
   const navigate = useNavigate();
   const [registerMsg, setRegisterMsg] = useState(null);
   const [registerMsgClass, setRegisterMsgClass] = useState("text-red-500");
-  const { register, user } = useAuth();
+  const { register } = useAuth();
   const [form, setForm] = useState({
     fullName: "",
     surname: "",
@@ -59,16 +59,17 @@ export default function NewUserRegistration() {
       };
 
       const result = await register(userDoc);
-      console.log("Registration response:", result);
 
       if (result && result.code === "201") {
-        // Combined pop-up and prompt
-        const proceed = window.confirm("Account has been created successfully. Would you like to log in now?");
-        // Clear inline message
+        // clear any inline messages
         setRegisterMsg(null);
-        // Clear form fields
+        // clear form fields
         setForm({ fullName: "", surname: "", email: "", password: "", confirmPassword: "", phone: "", country: "", suburb: "" });
-        if (proceed) {
+
+        // show success alert
+        window.alert("Account has been created successfully.");
+        // prompt for login
+        if (window.confirm("Would you like to log in now?")) {
           navigate("/login");
         }
       } else {
@@ -116,7 +117,7 @@ export default function NewUserRegistration() {
           />
         </div>
 
-        {/* Email and Suburb in same row */}
+        {/* Email and Suburb */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <input
             type="email"
@@ -134,21 +135,13 @@ export default function NewUserRegistration() {
             className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
             required
           >
-            <option value="" disabled>
-              Select Suburb
-            </option>
-            {suburbs.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
+            <option value="" disabled>Select Suburb</option>
+            {suburbs.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
-        {!isEmailValid && form.email && (
-          <p className="text-red-500 text-sm mt-1">Please enter a valid email</p>
-        )}
+        {!isEmailValid && form.email && <p className="text-red-500 text-sm mt-1">Please enter a valid email</p>}
 
-        {/* Password & Confirm in same row */}
+        {/* Password & Confirm */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <input
             type="password"
@@ -165,13 +158,11 @@ export default function NewUserRegistration() {
             value={form.confirmPassword}
             onChange={handleChange}
             placeholder="Confirm Password"
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
             required
           />
         </div>
-        {!passwordsMatch && form.confirmPassword && (
-          <p className="text-red-500 text-sm mt-1">Passwords must match</p>
-        )}
+        {!passwordsMatch && form.confirmPassword && <p className="text-red-500 text-sm mt-1">Passwords must match</p>}
 
         {/* Phone and Country */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
@@ -180,29 +171,21 @@ export default function NewUserRegistration() {
             value={form.phone}
             onChange={handleChange}
             placeholder="Phone Number (e.g. +263771234567)"
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
             required
           />
           <select
             name="country"
             value={form.country}
             onChange={handleChange}
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
             required
           >
-            <option value="" disabled>
-              Select Country
-            </option>
-            {countries.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
+            <option value="" disabled>Select Country</option>
+            {countries.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
-        {!isPhoneValid && form.phone && (
-          <p className="text-red-500 text-sm mt-1">Enter a valid phone number</p>
-        )}
+        {!isPhoneValid && form.phone && <p className="text-red-500 text-sm mt-1">Enter a valid phone number</p>}
 
         {/* Actions */}
         <div className="flex justify-center space-x-4 mt-6">
@@ -210,23 +193,15 @@ export default function NewUserRegistration() {
             type="submit"
             disabled={!isFormValid}
             className="px-6 py-2 bg-green-600 text-white rounded-md disabled:opacity-50"
-          >
-            Create User
-          </button>
+          >Create User</button>
           <button
             type="button"
             onClick={() => navigate("/")}
             className="px-6 py-2 border border-green-600 text-green-600 rounded-md hover:bg-green-100"
-          >
-            Cancel
-          </button>
+          >Cancel</button>
         </div>
 
-        {registerMsg && (
-          <p className={`${registerMsgClass} text-center mt-4`}>
-            {registerMsg}
-          </p>
-        )}
+        {registerMsg && <p className={`${registerMsgClass} text-center mt-4`}>{registerMsg}</p>}
 
         <p className="text-center text-gray-500 mt-6">Lanahub Copyright 2025</p>
       </form>
