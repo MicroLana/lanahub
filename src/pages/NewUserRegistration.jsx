@@ -62,14 +62,13 @@ export default function NewUserRegistration() {
       console.log("Registration response:", result);
 
       if (result && result.code === "201") {
-        // Pop-up success message
-        window.alert("User Registered Successfully.");
+        // Combined pop-up and prompt
+        const proceed = window.confirm("Account has been created successfully. Would you like to log in now?");
         // Clear inline message
         setRegisterMsg(null);
         // Clear form fields
         setForm({ fullName: "", surname: "", email: "", password: "", confirmPassword: "", phone: "", country: "", suburb: "" });
-        // Prompt for login
-        if (window.confirm("Would you like to log in now?")) {
+        if (proceed) {
           navigate("/login");
         }
       } else {
@@ -166,7 +165,7 @@ export default function NewUserRegistration() {
             value={form.confirmPassword}
             onChange={handleChange}
             placeholder="Confirm Password"
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
             required
           />
         </div>
@@ -181,14 +180,14 @@ export default function NewUserRegistration() {
             value={form.phone}
             onChange={handleChange}
             placeholder="Phone Number (e.g. +263771234567)"
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
             required
           />
           <select
             name="country"
             value={form.country}
             onChange={handleChange}
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
             required
           >
             <option value="" disabled>
