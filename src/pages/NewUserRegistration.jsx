@@ -1,14 +1,14 @@
+//// Correct Working
 // src/pages/NewUserRegistration.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-
 export default function NewUserRegistration() {
   const navigate = useNavigate();
   const [registerMsg, setRegisterMsg] = useState(null);
   const [registerMsgClass, setRegisterMsgClass] = useState("text-red-500");
   const { register, user } = useAuth();
-
   const [form, setForm] = useState({
     fullName: "",
     surname: "",
@@ -30,7 +30,8 @@ export default function NewUserRegistration() {
 
   const isEmailValid = /^\S+@\S+\.\S+$/.test(form.email);
   const isPhoneValid = /^\+?\d{7,15}$/.test(form.phone);
-  const passwordsMatch = form.password && form.password === form.confirmPassword;
+  const passwordsMatch =
+    form.password && form.password === form.confirmPassword;
 
   const isFormValid =
     form.fullName &&
@@ -45,7 +46,7 @@ export default function NewUserRegistration() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid) return;
-
+    // TODO: call API or Firebase to create user
     try {
       const userDoc = {
         mobile: form.phone,
@@ -59,32 +60,12 @@ export default function NewUserRegistration() {
         createdAt: new Date().toISOString(),
       };
 
-      const result = await register(userDoc);
-      console.log("Registration response:", result);
-
-      if (result && result.code === "201") {
-        // Clear inline message and form
-        setRegisterMsg(null);
-        setForm({ fullName: "", surname: "", email: "", password: "", confirmPassword: "", phone: "", country: "", suburb: "" });
-
-        // Success popup and login prompt
-        window.alert("Account has been created successfully.");
-        if (window.confirm("Would you like to log in now?")) {
-          navigate("/login");
-        }
-      } else {
-        // Show error popup
-        const errText = (result && result.message) || "Registration failed. Please try again.";
-        window.alert(errText);
-        setRegisterMsg(errText);
-        setRegisterMsgClass("text-red-500");
-      }
+      await register(userDoc);
+      console.log("User registered successfully" + (await user));
+      setRegisterMsg("User Registered Successfully. Please Login.");
+      setRegisterMsgClass("text-green-500");
     } catch (err) {
-      console.error("Registration error:", err);
-      const networkError = "Network error. Please try again.";
-      window.alert(networkError);
-      setRegisterMsg(networkError);
-      setRegisterMsgClass("text-red-500");
+      setRegisterMsg("User registration failed. Please try again.");
     }
   };
 
@@ -121,7 +102,7 @@ export default function NewUserRegistration() {
           />
         </div>
 
-        {/* Email and Suburb */}
+        {/* Email and Suburb in same row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <input
             type="email"
@@ -139,13 +120,23 @@ export default function NewUserRegistration() {
             className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
             required
           >
-            <option value="" disabled>Select Suburb</option>
-            {suburbs.map((s) => <option key={s} value={s}>{s}</option>)}
+            <option value="" disabled>
+              Select Suburb
+            </option>
+            {suburbs.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
           </select>
         </div>
-        {!isEmailValid && form.email && <p className="text-red-500 text-sm mt-1">Please enter a valid email</p>}
+        {!isEmailValid && form.email && (
+          <p className="text-red-500 text-sm mt-1">
+            Please enter a valid email
+          </p>
+        )}
 
-        {/* Password & Confirm */}
+        {/* Password & Confirm in same row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <input
             type="password"
@@ -166,7 +157,9 @@ export default function NewUserRegistration() {
             required
           />
         </div>
-        {!passwordsMatch && form.confirmPassword && <p className="text-red-500 text-sm mt-1">Passwords must match</p>}
+        {!passwordsMatch && form.confirmPassword && (
+          <p className="text-red-500 text-sm mt-1">Passwords must match</p>
+        )}
 
         {/* Phone and Country */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
@@ -185,11 +178,21 @@ export default function NewUserRegistration() {
             className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
             required
           >
-            <option value="" disabled>Select Country</option>
-            {countries.map((c) => <option key={c} value={c}>{c}</option>)}
+            <option value="" disabled>
+              Select Country
+            </option>
+            {countries.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
           </select>
         </div>
-        {!isPhoneValid && form.phone && <p className="text-red-500 text-sm mt-1">Enter a valid phone number</p>}
+        {!isPhoneValid && form.phone && (
+          <p className="text-red-500 text-sm mt-1">
+            Enter a valid phone number
+          </p>
+        )}
 
         {/* Actions */}
         <div className="flex justify-center space-x-4 mt-6">
@@ -197,15 +200,17 @@ export default function NewUserRegistration() {
             type="submit"
             disabled={!isFormValid}
             className="px-6 py-2 bg-green-600 text-white rounded-md disabled:opacity-50"
-          >Create User</button>
+          >
+            Create User
+          </button>
           <button
             type="button"
             onClick={() => navigate("/")}
             className="px-6 py-2 border border-green-600 text-green-600 rounded-md hover:bg-green-100"
-          >Cancel</button>
+          >
+            Cancel
+          </button>
         </div>
-
-        {registerMsg && <p className={`${registerMsgClass} text-center mt-4`}>{registerMsg}</p>}
 
         <p className="text-center text-gray-500 mt-6">Lanahub Copyright 2025</p>
       </form>
