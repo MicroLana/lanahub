@@ -1,8 +1,10 @@
+//Woring // Working
+
 // src/pages/NewUserRegistration.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-
 export default function NewUserRegistration() {
   const navigate = useNavigate();
   const [registerMsg, setRegisterMsg] = useState(null);
@@ -20,7 +22,7 @@ export default function NewUserRegistration() {
   });
 
   const countries = ["Zimbabwe", "South Africa", "Zambia", "UK"];
-  const suburbs = ["Suburb A", "Suburb B", "Suburb C"];
+  const suburbs = ["Suburb A", "Suburb B", "Suburb C"]; // replace with actual suburbs
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +31,8 @@ export default function NewUserRegistration() {
 
   const isEmailValid = /^\S+@\S+\.\S+$/.test(form.email);
   const isPhoneValid = /^\+?\d{7,15}$/.test(form.phone);
-  const passwordsMatch = form.password && form.password === form.confirmPassword;
+  const passwordsMatch =
+    form.password && form.password === form.confirmPassword;
 
   const isFormValid =
     form.fullName &&
@@ -44,31 +47,26 @@ export default function NewUserRegistration() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid) return;
-
-    const userDoc = {
-      mobile: form.phone,
-      email: form.email,
-      password: form.password,
-      role: "user",
-      fullName: form.fullName,
-      surName: form.surname,
-      suburb: form.suburb,
-      city: form.country,
-      createdAt: new Date().toISOString(),
-    };
-
+    // TODO: call API or Firebase to create user
     try {
+      const userDoc = {
+        mobile: form.phone,
+        email: form.email,
+        password: form.password,
+        role: "user",
+        fullName: form.fullName,
+        surName: form.surname,
+        suburb: form.suburb,
+        city: form.country,
+        createdAt: new Date().toISOString(),
+      };
+
       await register(userDoc);
-      setRegisterMsg("User registered successfully. Please login below.");
+      console.log("User registered successfully" + (await user));
+      setRegisterMsg("User Registered Successfully. Please Login.");
       setRegisterMsgClass("text-green-500");
     } catch (err) {
-      console.error("Registration error:", err);
-      const errorMsg =
-        (err.response && err.response.data) ||
-        err.message ||
-        "User registration failed. Please try again.";
-      setRegisterMsg(errorMsg);
-      setRegisterMsgClass("text-red-500");
+      setRegisterMsg("User registration failed. Please try again.");
     }
   };
 
@@ -85,6 +83,7 @@ export default function NewUserRegistration() {
           User Registration
         </h1>
 
+        {/* Name and Surname */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <input
             name="fullName"
@@ -104,6 +103,7 @@ export default function NewUserRegistration() {
           />
         </div>
 
+        {/* Email and Suburb in same row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <input
             type="email"
@@ -137,6 +137,7 @@ export default function NewUserRegistration() {
           </p>
         )}
 
+        {/* Password & Confirm in same row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <input
             type="password"
@@ -161,6 +162,7 @@ export default function NewUserRegistration() {
           <p className="text-red-500 text-sm mt-1">Passwords must match</p>
         )}
 
+        {/* Phone and Country */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <input
             name="phone"
@@ -193,6 +195,7 @@ export default function NewUserRegistration() {
           </p>
         )}
 
+        {/* Actions */}
         <div className="flex justify-center space-x-4 mt-6">
           <button
             type="submit"
@@ -210,33 +213,8 @@ export default function NewUserRegistration() {
           </button>
         </div>
 
-        {registerMsg && (
-          <div
-            className={`mt-6 p-4 rounded ${
-              registerMsgClass === "text-green-500"
-                ? "bg-green-100 border border-green-600"
-                : "bg-red-100 border border-red-600"
-            }`}
-          >
-            <p className={registerMsgClass}>{registerMsg}</p>
-            {registerMsgClass === "text-green-500" && (
-              <div className="text-center mt-4">
-                <button
-                  onClick={() => navigate("/login")}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md"
-                >
-                  Go to Login
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-        <p className="text-center text-gray-500 mt-6">
-          Lanahub Copyright 2025
-        </p>
+        <p className="text-center text-gray-500 mt-6">Lanahub Copyright 2025</p>
       </form>
     </div>
   );
 }
-
