@@ -1,5 +1,5 @@
 // src/pages/NewUserRegistration.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -7,7 +7,7 @@ export default function NewUserRegistration() {
   const navigate = useNavigate();
   const [registerMsg, setRegisterMsg] = useState(null);
   const [registerMsgClass, setRegisterMsgClass] = useState("text-red-500");
-  const { register } = useAuth();
+  const { register, user } = useAuth();
 
   const [form, setForm] = useState({
     fullName: "",
@@ -116,7 +116,7 @@ export default function NewUserRegistration() {
             value={form.surname}
             onChange={handleChange}
             placeholder="Surname"
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
             required
           />
         </div>
@@ -129,14 +129,14 @@ export default function NewUserRegistration() {
             value={form.email}
             onChange={handleChange}
             placeholder="Email"
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
             required
           />
           <select
             name="suburb"
             value={form.suburb}
             onChange={handleChange}
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
             required
           >
             <option value="" disabled>Select Suburb</option>
@@ -153,7 +153,7 @@ export default function NewUserRegistration() {
             value={form.password}
             onChange={handleChange}
             placeholder="Password"
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
             required
           />
           <input
@@ -162,7 +162,7 @@ export default function NewUserRegistration() {
             value={form.confirmPassword}
             onChange={handleChange}
             placeholder="Confirm Password"
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
             required
           />
         </div>
@@ -175,14 +175,14 @@ export default function NewUserRegistration() {
             value={form.phone}
             onChange={handleChange}
             placeholder="Phone Number (e.g. +263771234567)"
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
             required
           />
           <select
             name="country"
             value={form.country}
             onChange={handleChange}
-            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-green-600 rounded-md p-2 text-black focus:ring-green-500 focus;border-green-500"
             required
           >
             <option value="" disabled>Select Country</option>
