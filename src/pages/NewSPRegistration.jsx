@@ -1,26 +1,29 @@
 // src/pages/NewSPRegistration.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 export default function NewSPRegistration() {
   const navigate = useNavigate();
+  const { register, user } = useAuth();
+  const [registerMsg, setRegisterMsg] = useState(null);
+  const [registerMsgClass, setRegisterMsgClass] = useState("text-red-500");
   const [form, setForm] = useState({
-    fullName: '',
-    surname: '',
-    email: '',
-    phone: '',
-    sex: '',
-    profession: '',
-    password: '',
-    confirmPassword: '',
-    nationality: 'Zimbabwe',     // default country
-    city: '',
-    suburb: '',
-    address: '',
-    longBio: '',
-    websiteLink: '',
-    experience: '',
-    available: false
+    fullName: "",
+    surname: "",
+    email: "",
+    phone: "",
+    sex: "",
+    profession: "",
+    password: "",
+    confirmPassword: "",
+    nationality: "Zimbabwe", // default country
+    city: "",
+    suburb: "",
+    address: "",
+    longBio: "",
+    websiteLink: "",
+    experience: "",
+    available: false,
   });
 
   const [profilePic, setProfilePic] = useState(null);
@@ -29,46 +32,111 @@ export default function NewSPRegistration() {
   const [otherDocs, setOtherDocs] = useState([]);
 
   const professions = [
-    'Plumber', 'Electrician', 'Motor Mechanic', 'Cleaner', 'Gardener',
-    'Painter', 'Personal Trainer', 'Fitness Coach', 'Cell Phone Technician',
-    'House Manager', 'Pet Groomer', 'Solar Installer', 'Mover'
+    "Plumber",
+    "Electrician",
+    "Motor Mechanic",
+    "Cleaner",
+    "Gardener",
+    "Painter",
+    "Personal Trainer",
+    "Fitness Coach",
+    "Cell Phone Technician",
+    "House Manager",
+    "Pet Groomer",
+    "Solar Installer",
+    "Mover",
   ];
 
   const cities = [
-    'Harare', 'Gweru', 'Bulawayo', 'Chinhoyi', 'Kadoma', 'Marondera',
-    'Banket', 'Bindura'
+    "Harare",
+    "Gweru",
+    "Bulawayo",
+    "Chinhoyi",
+    "Kadoma",
+    "Marondera",
+    "Banket",
+    "Bindura",
   ];
 
-  const nationalities = ['Zimbabwe', 'South Africa', 'Zambia'];
-  const experiences = ['>2 yrs', '5 yrs', '6-8 yrs', '10+ yrs'];
+  const nationalities = ["Zimbabwe", "South Africa", "Zambia"];
+  const experiences = [">2 yrs", "5 yrs", "6-8 yrs", "10+ yrs"];
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm(prev => ({
+    setForm((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleFileChange = (e, setter) => setter(e.target.files[0]);
-  const handleMultiFileChange = e => {
+  const handleMultiFileChange = (e) => {
     const files = Array.from(e.target.files).slice(0, 3);
     setOtherDocs(files);
   };
 
   const isEmailValid = /^\S+@\S+\.\S+$/.test(form.email);
-  const isWebsiteValid = /^(https?:\/\/)?[\w.-]+\.[A-Za-z]{2,}(\/.*)?$/.test(form.websiteLink);
+  const isWebsiteValid = /^(https?:\/\/)?[\w.-]+\.[A-Za-z]{2,}(\/.*)?$/.test(
+    form.websiteLink
+  );
   const isFormValid =
-    form.fullName && form.surname && isEmailValid && form.phone &&
-    form.sex && form.profession && form.password &&
-    form.password === form.confirmPassword && form.nationality &&
-    form.city && form.address && form.longBio && isWebsiteValid &&
-    form.experience && profilePic && qualificationDoc;
+    form.fullName &&
+    form.surname &&
+    isEmailValid &&
+    form.phone &&
+    form.sex &&
+    form.profession &&
+    form.password &&
+    form.password === form.confirmPassword &&
+    form.nationality &&
+    form.city &&
+    form.address &&
+    form.longBio &&
+    isWebsiteValid &&
+    form.experience &&
+    profilePic &&
+    qualificationDoc;
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid) return;
     // TODO: upload files, create account, save profile, then navigate
+    try {
+      const userDoc = {
+        mobile: form.phone,
+        email: form.email,
+        password: form.password,
+        role: "service_provider",
+        fullName: form.fullName,
+        gender: form.sex,
+        profession: form.profession,
+        nationality: form.nationality,
+        surName: form.surname,
+        suburb: form.suburb,
+        city: form.city,
+        address: form.address,
+        longBio: form.longBio,
+        websiteLink: form.websiteLink,
+        experience: form.experience,
+        profilePic: profilePic,
+        qualificationDoc: qualificationDoc,
+        policeClearance: policeClearance,
+        otherDocs: otherDocs,
+        available: form.available,
+        createdAt: new Date().toISOString(),
+      };
+      console.log("User Doc to sp-register:", userDoc);
+      const formData = new FormData();
+      for (const key in userDoc) {
+        formData.append(key, userDoc[key]);
+      }
+      await register(formData);
+      console.log("User registered successfully" + (await user));
+      setRegisterMsg("User Registered Successfully. Please Login.");
+      setRegisterMsgClass("text-green-500");
+    } catch (err) {
+      setRegisterMsg("User registration failed. Please try again.");
+    }
   };
 
   return (
@@ -140,7 +208,9 @@ export default function NewSPRegistration() {
             className="w-full border border-green-600 rounded-md p-2 focus:ring-green-500 focus:border-green-500 text-black"
             required
           >
-            <option value="" disabled>Select Gender</option>
+            <option value="" disabled>
+              Select Gender
+            </option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
@@ -151,9 +221,13 @@ export default function NewSPRegistration() {
             className="w-full border border-green-600 rounded-md p-2 focus:ring-green-500 focus:border-green-500 text-black"
             required
           >
-            <option value="" disabled>Select Profession</option>
-            {professions.map(job => (
-              <option key={job} value={job}>{job}</option>
+            <option value="" disabled>
+              Select Profession
+            </option>
+            {professions.map((job) => (
+              <option key={job} value={job}>
+                {job}
+              </option>
             ))}
           </select>
           <input
@@ -175,7 +249,9 @@ export default function NewSPRegistration() {
             required
           />
           {form.confirmPassword && form.password !== form.confirmPassword && (
-            <p className="text-red-500 text-sm col-span-full">Passwords must match</p>
+            <p className="text-red-500 text-sm col-span-full">
+              Passwords must match
+            </p>
           )}
           <select
             name="nationality"
@@ -184,9 +260,13 @@ export default function NewSPRegistration() {
             className="w-full border border-green-600 rounded-md p-2 focus:ring-green-500 focus:border-green-500 text-black"
             required
           >
-            <option value="" disabled>Select Nationality</option>
-            {nationalities.map(nat => (
-              <option key={nat} value={nat}>{nat}</option>
+            <option value="" disabled>
+              Select Nationality
+            </option>
+            {nationalities.map((nat) => (
+              <option key={nat} value={nat}>
+                {nat}
+              </option>
             ))}
           </select>
           <select
@@ -196,9 +276,13 @@ export default function NewSPRegistration() {
             className="w-full border border-green-600 rounded-md p-2 focus:ring-green-500 focus:border-green-500 text-black"
             required
           >
-            <option value="" disabled>Select City</option>
-            {cities.map(ct => (
-              <option key={ct} value={ct}>{ct}</option>
+            <option value="" disabled>
+              Select City
+            </option>
+            {cities.map((ct) => (
+              <option key={ct} value={ct}>
+                {ct}
+              </option>
             ))}
           </select>
           <input
@@ -233,7 +317,9 @@ export default function NewSPRegistration() {
             required
           />
           {form.websiteLink && !isWebsiteValid && (
-            <p className="text-red-500 text-sm col-span-full">Please enter a valid URL</p>
+            <p className="text-red-500 text-sm col-span-full">
+              Please enter a valid URL
+            </p>
           )}
           <select
             name="experience"
@@ -242,23 +328,29 @@ export default function NewSPRegistration() {
             className="w-full border border-green-600 rounded-md p-2 focus:ring-green-500 focus:border-green-500 text-black"
             required
           >
-            <option value="" disabled>Select Experience</option>
-            {experiences.map(exp => (
-              <option key={exp} value={exp}>{exp}</option>
+            <option value="" disabled>
+              Select Experience
+            </option>
+            {experiences.map((exp) => (
+              <option key={exp} value={exp}>
+                {exp}
+              </option>
             ))}
           </select>
         </div>
 
         {/* Attachments */}
         <div className="border-2 border-green-600 p-4 rounded-lg mb-6">
-          <h3 className="font-semibold text-green-600 mb-2">Attachments (required)</h3>
+          <h3 className="font-semibold text-green-600 mb-2">
+            Attachments (required)
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block mb-1">Profile Picture</label>
               <input
                 type="file"
                 accept="image/*"
-                onChange={e => handleFileChange(e, setProfilePic)}
+                onChange={(e) => handleFileChange(e, setProfilePic)}
                 className="w-full text-black"
                 required
               />
@@ -267,7 +359,7 @@ export default function NewSPRegistration() {
               <label className="block mb-1">Qualification Document</label>
               <input
                 type="file"
-                onChange={e => handleFileChange(e, setQualificationDoc)}
+                onChange={(e) => handleFileChange(e, setQualificationDoc)}
                 className="w-full text-black"
                 required
               />
@@ -276,7 +368,7 @@ export default function NewSPRegistration() {
               <label className="block mb-1">Police Clearance</label>
               <input
                 type="file"
-                onChange={e => handleFileChange(e, setPoliceClearance)}
+                onChange={(e) => handleFileChange(e, setPoliceClearance)}
                 className="w-full text-black"
               />
             </div>
@@ -291,7 +383,9 @@ export default function NewSPRegistration() {
             </div>
           </div>
         </div>
-
+        {registerMsg && (
+          <p className={`${registerMsgClass} text-sm mt-2`}>{registerMsg}</p>
+        )}
         {/* Actions */}
         <div className="flex justify-center space-x-4 mt-4">
           <button
@@ -303,7 +397,7 @@ export default function NewSPRegistration() {
           </button>
           <button
             type="button"
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className="px-6 py-2 border border-green-600 text-green-600 rounded-full hover:bg-green-100"
           >
             Cancel

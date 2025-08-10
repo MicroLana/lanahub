@@ -33,6 +33,40 @@ export const AuthProvider = ({ children }) => {
 
     const data = await response.json();
     setLoggedInUser(data); // { uid, email, role, token? }
+    return data;
+  };
+
+  const getUserDetails = async (collection, id) => {
+    const response = await fetch(
+      `${config.apiBaseUrl}/lana-hub-api/${config.version}/${collection}/record/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) throw new Error("Failed to fetch user details");
+
+    const data = await response.json();
+    return data;
+  };
+  const getUserDocs = async (id) => {
+    const response = await fetch(
+      `${config.apiBaseUrl}/lana-hub-api/${config.version}/record/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) throw new Error("Failed to fetch user details");
+
+    const data = await response.json();
+    return data;
   };
   const register = async (userDoc) => {
     // call Firebase or backend API to register
@@ -40,10 +74,7 @@ export const AuthProvider = ({ children }) => {
       `${config.apiBaseUrl}/lana-hub-api/${config.version}/register-user`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userDoc),
+        body: userDoc,
       }
     );
 
@@ -61,7 +92,15 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, logout, register, loggedInUser }}
+      value={{
+        user,
+        login,
+        logout,
+        register,
+        loggedInUser,
+        getUserDetails,
+        getUserDocs,
+      }}
     >
       {children}
     </AuthContext.Provider>

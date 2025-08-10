@@ -1,8 +1,10 @@
 //Developed by Mr N~G~K
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar2 from "../components/Navbar2.jsx";
 import Footer from "../components/Footer.jsx";
 import TokenExpiryTimer from "../login/TokenExpiryTimer";
+import { useAuth } from "../context/AuthContext";
 // Dummy user, booking, and favorite data for demo purposes
 const USER = {
   name: "Jane Doe",
@@ -89,24 +91,58 @@ const FAVOURITES = [
     image: "",
   },
 ];
-
+const TABS = [
+  { name: "Profile", icon: <span className="mr-2">👤</span> },
+  { name: "Bookings", icon: <span className="mr-2">📑</span> },
+  { name: "Favorites", icon: <span className="mr-2">❤️</span> },
+  { name: "Settings", icon: <span className="mr-2">⚙️</span> },
+];
 export default function UserDashboard() {
   const [tab, setTab] = useState(0);
   const inputFileRef = useRef(null);
   const [profilePic, setProfilePic] = useState(USER.profilePic);
-
+  const location = useLocation();
+  const { user } = location.state || {};
+  const [userData, setUserData] = useState(null); // To store API response
+  const [loading, setLoading] = useState(true); // To show loading state
+  const [error, setError] = useState(null); // To store error
+  const { login, logout, register, loggedInUser, getUserDetails, getUserDocs } =
+    useAuth();
+  console.log("User from state:", user);
+  USER.email = user.email;
   const handlePicUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
       setProfilePic(URL.createObjectURL(e.target.files[0]));
     }
   };
 
-  const TABS = [
-    { name: "Profile", icon: <span className="mr-2">👤</span> },
-    { name: "Bookings", icon: <span className="mr-2">📑</span> },
-    { name: "Favorites", icon: <span className="mr-2">❤️</span> },
-    { name: "Settings", icon: <span className="mr-2">⚙️</span> },
-  ];
+  useEffect(() => {
+    async function fetchUserData() {
+      const userDetails = await getUserDetails("users", user.uid);
+      if (!userDetails) {
+        setError("Failed to fetch user details");
+      } else {
+        setUserData(userDetails);
+        USER.name = userDetails.fullName;
+        USER.suburb = userDetails.suburb;
+        USER.city = userDetails.city;
+        USER.phone = userDetails.mobile;
+        USER.address = userDetails.address;
+      }
+      setLoading(false);
+    }
+    fetchUserData().catch((err) => {
+      console.error("Error fetching user data:", err);
+      setError("Failed to fetch user data");
+      setLoading(false);
+    });
+  }, []); // [] means run only once when component loads
+
+  // Show loading state
+  if (loading) return <p>Loading...</p>;
+
+  // Show error state
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">

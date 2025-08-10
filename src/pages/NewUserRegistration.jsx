@@ -58,8 +58,11 @@ export default function NewUserRegistration() {
         city: form.country,
         createdAt: new Date().toISOString(),
       };
-
-      await register(userDoc);
+      const formData = new FormData();
+      for (const key in userDoc) {
+        formData.append(key, userDoc[key]);
+      }
+      await register(formData);
       console.log("User registered successfully" + (await user));
       setRegisterMsg("User Registered Successfully. Please Login.");
       setRegisterMsgClass("text-green-500");
@@ -192,7 +195,9 @@ export default function NewUserRegistration() {
             Enter a valid phone number
           </p>
         )}
-
+        {registerMsg && (
+          <p className={`${registerMsgClass} text-sm mt-2`}>{registerMsg}</p>
+        )}
         {/* Actions */}
         <div className="flex justify-center space-x-4 mt-6">
           <button

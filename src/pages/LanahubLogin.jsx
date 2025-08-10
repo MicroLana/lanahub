@@ -16,9 +16,13 @@ export default function LanahubLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await login(emailOrPhone, password);
-      console.log("Logged in!" + loggedInUser);
-      navigate("/dashboard");
+      const user = await login(emailOrPhone, password);
+      console.log("Logged in!", user);
+      if (user) {
+        user.role === "service_provider"
+          ? navigate("/service_provider_dashboard", { state: { user: user } })
+          : navigate("/user_dashboard", { state: { user: user } });
+      }
     } catch (err) {
       setError("Login failed. Please check again later.");
       console.error("Login failed", err);

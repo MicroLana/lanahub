@@ -150,11 +150,14 @@ function AppContent() {
         <Route path="/FindProfessional" element={<FindProfessional />} />
         <Route path="/login" element={<LanahubLogin />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/user_dashboard" element={<UserDashboard />} />
+        <Route
+          path="/service_provider_dashboard"
+          element={<ProviderDashboard />}
+        />
 
         {/* ✅ Provider Dashboard page */}
         <Route path="/provider-dashboard" element={<ProviderDashboard />} />
-
       </Routes>
     </>
   );
